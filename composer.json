@@ -1,0 +1,23 @@
+{
+	"name": "eighteen73/pulsar-blocks",
+	"description": "A collection of blocks for the pulsar theme.",
+	"type": "wordpress-plugin",
+	"license": "MIT",
+	"minimum-stability": "stable",
+	"require": {
+	  "php": ">=7.4"
+	},
+	"require-dev": {
+	  "eighteen73/phpcs-composer": "^v1.0"
+	},
+	"config": {
+	  "allow-plugins": {
+		"dealerdirect/phpcodesniffer-composer-installer": true
+	  }
+	},
+	"scripts": {
+	  "test": [
+		"phpcs"
+	  ]
+	}
+  }
