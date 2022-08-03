@@ -7,31 +7,31 @@
   "category": "text",
   "icon": "universal-access-alt",
   "attributes": {
-    "slidesPerPage": {
+    "perPage": {
       "type": "number",
       "default": 1
     },
-    "slidesPerMove": {
+    "perMove": {
       "type": "number",
       "default": 1
     },
-    "isAutoplayEnabled": {
+    "autoplay": {
       "type": "boolean",
       "default": false
     },
-    "isShowArrowsEnabled": {
+    "arrows": {
       "type": "boolean",
       "default": false
     },
-    "isPaginationEnabled": {
+    "pagination": {
       "type": "boolean",
       "default": false
     },
-    "animationMode": {
+    "type": {
       "type": "string",
       "default": "loop"
     },
-    "slideGap": {
+    "gap": {
       "type": "number",
       "default": 0
     },
@@ -42,6 +42,36 @@
     "focusType": {
       "type": "string",
       "default": "center"
+    },
+    "mobile": {
+      "type": "object",
+      "default": {
+        "perPage": 1,
+        "perMove": 1
+      },
+      "perPage": {
+        "type": "number",
+        "default": 1
+      },
+      "perMove": {
+        "type": "number",
+        "default": 1
+      }
+    },
+    "tablet": {
+      "type": "object",
+      "default": {
+        "perPage": 2,
+        "perMove": 1
+      },
+      "perPage": {
+        "type": "number",
+        "default": 2
+      },
+      "perMove": {
+        "type": "number",
+        "default": 1
+      }
     }
   },
   "example": {

@@ -7,7 +7,6 @@ import {
 	RangeControl,
 	__experimentalRadio as Radio,
 	__experimentalRadioGroup as RadioGroup,
-	__experimentalNumberControl as NumberControl,
 } from "@wordpress/components";
 
 import { more } from "@wordpress/icons";

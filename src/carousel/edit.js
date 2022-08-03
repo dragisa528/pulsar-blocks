@@ -10,9 +10,12 @@
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/richtext/
  */
-import { useBlockProps, RichText } from "@wordpress/block-editor";
-import { useSelect } from "@wordpress/data";
 import { __ } from "@wordpress/i18n";
+
+import { useBlockProps, useInnerBlocksProps } from "@wordpress/block-editor";
+
+import { useState } from "@wordpress/element";
+
 import CarouselControls from "./components/CarouselControls";
 
 /**
@@ -22,6 +25,14 @@ import CarouselControls from "./components/CarouselControls";
  * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
  */
 import "./editor.scss";
+
+const ALLOWED_BLOCKS = ["pulsar-blocks/carousel-slide"];
+const TEMPLATE = [
+	["pulsar-blocks/carousel-slide"],
+	["pulsar-blocks/carousel-slide"],
+	["pulsar-blocks/carousel-slide"],
+	["pulsar-blocks/carousel-slide"],
+];
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -35,63 +46,100 @@ import "./editor.scss";
  */
 export default function Edit({ attributes, setAttributes }) {
 	const {
-		slidesPerPage,
-		slidesPerMove,
-		isAutoplayEnabled,
-		isShowArrowsEnabled,
-		isPaginationEnabled,
-		animationMode,
-		slideGap,
+		perPage,
+		perMove,
+		autoplay,
+		arrows,
+		pagination,
+		type,
+		gap,
 		focusPosition,
 		focusType,
+		mobile,
+		tablet,
+		desktop,
 	} = attributes;
 
+	const [splideJSONData, setSplideJSONData] = useState({
+		perPage,
+		perMove,
+		autoplay,
+		arrows,
+		pagination,
+		type,
+		gap,
+		focus: focusType === "number" ? focusPosition : focusType,
+	});
+
 	const onChangeAutoplayEnabled = () => {
-		setAttributes({ isAutoplayEnabled: !isAutoplayEnabled });
+		setAttributes({ autoplay: !autoplay });
+		setSplideJSONData({ ...splideJSONData, autoplay: !autoplay });
 	};
 
 	const onChangeArrowsEnabled = () => {
-		setAttributes({ isShowArrowsEnabled: !isShowArrowsEnabled });
+		setAttributes({ arrows: !arrows });
+		setSplideJSONData({ ...splideJSONData, arrows: !arrows });
 	};
 
 	const onChangePaginationEnabled = () => {
-		setAttributes({ isPaginationEnabled: !isPaginationEnabled });
+		setAttributes({ pagination: !pagination });
+		setSplideJSONData({ ...splideJSONData, pagination: !pagination });
 	};
 
 	const onChangeAnimationMode = (mode) => {
-		setAttributes({ animationMode: mode });
+		setAttributes({ type: mode });
+		setSplideJSONData({ ...splideJSONData, type: mode });
 	};
 
 	const onChangeSlidesPerPage = (number) => {
-		setAttributes({ slidesPerPage: number });
+		setAttributes({ perPage: number });
+		setSplideJSONData({ ...splideJSONData, perPage: number });
 	};
 
 	const onChangeSlidesPerMove = (number) => {
-		setAttributes({ slidesPerMove: number });
+		setAttributes({ perMove: number });
+		setSplideJSONData({ ...splideJSONData, perMove: number });
 	};
 
 	const onChangeSlideGap = (number) => {
-		setAttributes({ slideGap: number });
+		setAttributes({ gap: number });
+		setSplideJSONData({ ...splideJSONData, gap: number });
 	};
 
 	const onChangeFocusType = (type) => {
 		setAttributes({ focusType: type });
+		setSplideJSONData({
+			...splideJSONData,
+			focus: focusType === "number" ? focusPosition : focusType,
+		});
 	};
 
 	const onChangeFocusPosition = (position) => {
 		setAttributes({ focusPosition: position });
+		setSplideJSONData({
+			...splideJSONData,
+			focus: position,
+		});
 	};
+
+	const blockProps = useBlockProps({ className: "splide__list" });
+
+	const innerBlocksProps = useInnerBlocksProps(blockProps, {
+		orientation: "horizontal",
+		template: TEMPLATE,
+		allowedBlocks: ALLOWED_BLOCKS,
+	});
 
 	return (
 		<>
 			<CarouselControls
-				slidesPerPage={slidesPerPage}
-				slidesPerMove={slidesPerMove}
-				isAutoplayEnabled={isAutoplayEnabled}
-				isShowArrowsEnabled={isShowArrowsEnabled}
-				isPaginationEnabled={isPaginationEnabled}
-				animationMode={animationMode}
-				slideGap={slideGap}
+				perPage={perPage}
+				perMove={perMove}
+				autoplay={autoplay}
+				arrows={arrows}
+				pagination={pagination}
+				type={type}
+				gap={gap}
 				focusPosition={focusPosition}
 				focusType={focusType}
 				onChangeAutoplayEnabled={onChangeAutoplayEnabled}
@@ -104,6 +152,15 @@ export default function Edit({ attributes, setAttributes }) {
 				onChangeFocusType={onChangeFocusType}
 				onChangeFocusPosition={onChangeFocusPosition}
 			/>
+			<div
+				{...useBlockProps({ className: "splide" })}
+				aria-label=""
+				data-splide={`'${JSON.stringify(splideJSONData)}'`}
+			>
+				<div className="splide__track">
+					<ul {...innerBlocksProps}></ul>
+				</div>
+			</div>
 		</>
 	);
 }

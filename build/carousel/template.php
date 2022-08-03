@@ -16,7 +16,7 @@
 <section <?php echo wp_kses_data( get_block_wrapper_attributes( [ 'class' => 'splide' ] ) ); ?>>
 	<div class="splide__track">
 		<div class="splide__list">
-			<?php echo $content; ?>
+			<?php echo wp_kses_post( $content ); ?>
 		</div>
 	</div>
 </section>
