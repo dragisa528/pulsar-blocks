@@ -1,0 +1,48 @@
+/**
+ * The following styles get applied inside the editor only.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.wp-block-pulsar-blocks-carousel {
+	border: 1px dotted #f00;
+}
+.inspector-controls {
+	.__animation {
+		width: 100%;
+		display: block;
+		margin-top: 10px;
+		margin-bottom: 20px;
+
+		> .__button-group {
+			display: flex;
+			* {
+				flex-grow: 1;
+				justify-content: center;
+			}
+		}
+	}
+
+	.__slides-per-page,
+	.__per-move,
+	.__gap,
+	.__focus {
+		display: block;
+		width: 100%;
+		margin-bottom: 20px;
+	}
+
+	.__focus {
+		> .__button-group {
+			display: flex;
+			* {
+				flex-grow: 1;
+				justify-content: center;
+			}
+		}
+
+		> .__range-control {
+			margin-top: 15px;
+		}
+	}
+}

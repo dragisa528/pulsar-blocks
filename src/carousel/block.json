@@ -7,9 +7,41 @@
 	"category": "text",
 	"icon": "universal-access-alt",
 	"attributes": {
-		"message": {
+		"slidesPerPage": {
+			"type": "number",
+			"default": 1
+		},
+		"slidesPerMove": {
+			"type": "number",
+			"default": 1
+		},
+		"isAutoplayEnabled": {
+			"type": "boolean",
+			"default": false
+		},
+		"isShowArrowsEnabled": {
+			"type": "boolean",
+			"default": false
+		},
+		"isPaginationEnabled": {
+			"type": "boolean",
+			"default": false
+		},
+		"animationMode": {
 			"type": "string",
-			"default": "Hello from a dynamic block!"
+			"default": "loop"
+		},
+		"slideGap": {
+			"type": "number",
+			"default": 0
+		},
+		"focusPosition": {
+			"type": "number",
+			"default": 1
+		},
+		"focusType": {
+			"type": "string",
+			"default": "center"
 		}
 	},
 	"example": {

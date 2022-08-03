@@ -10,9 +10,10 @@
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/richtext/
  */
-import { useBlockProps, RichText } from '@wordpress/block-editor';
-import { useSelect } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
+import { useBlockProps, RichText } from "@wordpress/block-editor";
+import { useSelect } from "@wordpress/data";
+import { __ } from "@wordpress/i18n";
+import CarouselControls from "./components/CarouselControls";
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -20,7 +21,7 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
  */
-import './editor.css';
+import "./editor.scss";
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -32,21 +33,77 @@ import './editor.css';
  * @param {Function} param0.setAttributes
  * @return {WPElement} Element to render.
  */
-export default function Edit( { attributes: { message }, setAttributes } ) {
-	const { title } = useSelect(
-		( select ) => select( 'core' ).getSite() ?? {}
-	);
+export default function Edit({ attributes, setAttributes }) {
+	const {
+		slidesPerPage,
+		slidesPerMove,
+		isAutoplayEnabled,
+		isShowArrowsEnabled,
+		isPaginationEnabled,
+		animationMode,
+		slideGap,
+		focusPosition,
+		focusType,
+	} = attributes;
+
+	const onChangeAutoplayEnabled = () => {
+		setAttributes({ isAutoplayEnabled: !isAutoplayEnabled });
+	};
+
+	const onChangeArrowsEnabled = () => {
+		setAttributes({ isShowArrowsEnabled: !isShowArrowsEnabled });
+	};
+
+	const onChangePaginationEnabled = () => {
+		setAttributes({ isPaginationEnabled: !isPaginationEnabled });
+	};
+
+	const onChangeAnimationMode = (mode) => {
+		setAttributes({ animationMode: mode });
+	};
+
+	const onChangeSlidesPerPage = (number) => {
+		setAttributes({ slidesPerPage: number });
+	};
+
+	const onChangeSlidesPerMove = (number) => {
+		setAttributes({ slidesPerMove: number });
+	};
+
+	const onChangeSlideGap = (number) => {
+		setAttributes({ slideGap: number });
+	};
+
+	const onChangeFocusType = (type) => {
+		setAttributes({ focusType: type });
+	};
+
+	const onChangeFocusPosition = (position) => {
+		setAttributes({ focusPosition: position });
+	};
 
 	return (
-		<p { ...useBlockProps() }>
-			<RichText
-				tagName="span"
-				value={ message }
-				onChange={ ( newMessage ) =>
-					setAttributes( { message: newMessage } )
-				}
+		<>
+			<CarouselControls
+				slidesPerPage={slidesPerPage}
+				slidesPerMove={slidesPerMove}
+				isAutoplayEnabled={isAutoplayEnabled}
+				isShowArrowsEnabled={isShowArrowsEnabled}
+				isPaginationEnabled={isPaginationEnabled}
+				animationMode={animationMode}
+				slideGap={slideGap}
+				focusPosition={focusPosition}
+				focusType={focusType}
+				onChangeAutoplayEnabled={onChangeAutoplayEnabled}
+				onChangeArrowsEnabled={onChangeArrowsEnabled}
+				onChangePaginationEnabled={onChangePaginationEnabled}
+				onChangeAnimationMode={onChangeAnimationMode}
+				onChangeSlidesPerPage={onChangeSlidesPerPage}
+				onChangeSlidesPerMove={onChangeSlidesPerMove}
+				onChangeSlideGap={onChangeSlideGap}
+				onChangeFocusType={onChangeFocusType}
+				onChangeFocusPosition={onChangeFocusPosition}
 			/>
-			<span> | { title ?? __( 'loading…', 'pulsar-blocks' ) }</span>
-		</p>
+		</>
 	);
 }
