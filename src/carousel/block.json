@@ -5,7 +5,6 @@
 	"version": "0.1.0",
 	"title": "Carousel",
 	"category": "text",
-	"icon": "universal-access-alt",
 	"attributes": {
 		"autoplay": {
 			"type": "boolean",
