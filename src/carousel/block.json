@@ -23,34 +23,14 @@
 			"type": "string",
 			"default": "loop"
 		},
-		"focusPosition": {
-			"type": "number",
-			"default": 1
-		},
-		"focusType": {
-			"type": "string",
-			"default": "center"
-		},
-		"mobile": {
+		"mobileOptions": {
 			"type": "object",
 			"default": {
 				"perPage": 1,
-				"perMove": 1
-			},
-			"perPage": {
-				"type": "number",
-				"default": 1
-			},
-			"perMove": {
-				"type": "number",
-				"default": 1
-			}
-		},
-		"tablet": {
-			"type": "object",
-			"default": {
-				"perPage": 2,
-				"perMove": 1
+				"perMove": 1,
+				"gap": 0,
+				"focusType": "center",
+				"focusPosition": 1
 			},
 			"perPage": {
 				"type": "number",
@@ -59,19 +39,76 @@
 			"perMove": {
 				"type": "number",
 				"default": 1
+			},
+			"gap": {
+				"type": "number",
+				"default": 0
+			},
+			"focusType": {
+				"type": "string",
+				"default": "center"
+			},
+			"focusPosition": {
+				"type": "number",
+				"default": 1
 			}
 		},
-		"desktop": {
+		"tabletOptions": {
 			"type": "object",
 			"default": {
-				"perPage": 1,
-				"perMove": 1
+				"perPage": 2,
+				"perMove": 1,
+				"gap": 0,
+				"focusType": "center",
+				"focusPosition": 1
 			},
 			"perPage": {
 				"type": "number",
-				"default": 1
+				"default": 2
 			},
 			"perMove": {
+				"type": "number",
+				"default": 1
+			},
+			"gap": {
+				"type": "number",
+				"default": 0
+			},
+			"focusType": {
+				"type": "string",
+				"default": "center"
+			},
+			"focusPosition": {
+				"type": "number",
+				"default": 1
+			}
+		},
+		"desktopOptions": {
+			"type": "object",
+			"default": {
+				"perPage": 4,
+				"perMove": 1,
+				"gap": 0,
+				"focusType": "center",
+				"focusPosition": 1
+			},
+			"perPage": {
+				"type": "number",
+				"default": 4
+			},
+			"perMove": {
+				"type": "number",
+				"default": 1
+			},
+			"gap": {
+				"type": "number",
+				"default": 0
+			},
+			"focusType": {
+				"type": "string",
+				"default": "center"
+			},
+			"focusPosition": {
 				"type": "number",
 				"default": 1
 			}

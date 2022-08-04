@@ -46,29 +46,21 @@ const TEMPLATE = [
  */
 export default function Edit({ attributes, setAttributes }) {
 	const {
-		perPage,
-		perMove,
 		autoplay,
 		arrows,
 		pagination,
 		type,
-		gap,
-		focusPosition,
-		focusType,
-		mobile,
-		tablet,
-		desktop,
+		mobileOptions,
+		tabletOptions,
+		desktopOptions,
 	} = attributes;
 
 	const [splideJSONData, setSplideJSONData] = useState({
-		perPage,
-		perMove,
 		autoplay,
 		arrows,
 		pagination,
 		type,
-		gap,
-		focus: focusType === "number" ? focusPosition : focusType,
+		//focus: focusType === "number" ? focusPosition : focusType,
 	});
 
 	const onChangeAutoplayEnabled = () => {
@@ -91,6 +83,19 @@ export default function Edit({ attributes, setAttributes }) {
 		setSplideJSONData({ ...splideJSONData, type: mode });
 	};
 
+	const onChangeMobileAttributes = (object) => {
+		setAttributes({ mobileOptions: object });
+	};
+
+	const onChangeTabletAttributes = (object) => {
+		setAttributes({ tabletOptions: object });
+	};
+
+	const onChangeDesktopAttributes = (object) => {
+		setAttributes({ desktopOptions: object });
+	};
+
+	/*
 	const onChangeSlidesPerPage = (number) => {
 		setAttributes({ perPage: number });
 		setSplideJSONData({ ...splideJSONData, perPage: number });
@@ -122,6 +127,8 @@ export default function Edit({ attributes, setAttributes }) {
 		});
 	};
 
+	*/
+
 	const blockProps = useBlockProps({ className: "splide__list" });
 
 	const innerBlocksProps = useInnerBlocksProps(blockProps, {
@@ -133,24 +140,20 @@ export default function Edit({ attributes, setAttributes }) {
 	return (
 		<>
 			<CarouselControls
-				perPage={perPage}
-				perMove={perMove}
 				autoplay={autoplay}
 				arrows={arrows}
 				pagination={pagination}
 				type={type}
-				gap={gap}
-				focusPosition={focusPosition}
-				focusType={focusType}
+				mobileOptions={mobileOptions}
+				tabletOptions={tabletOptions}
+				desktopOptions={desktopOptions}
 				onChangeAutoplayEnabled={onChangeAutoplayEnabled}
 				onChangeArrowsEnabled={onChangeArrowsEnabled}
 				onChangePaginationEnabled={onChangePaginationEnabled}
 				onChangeAnimationMode={onChangeAnimationMode}
-				onChangeSlidesPerPage={onChangeSlidesPerPage}
-				onChangeSlidesPerMove={onChangeSlidesPerMove}
-				onChangeSlideGap={onChangeSlideGap}
-				onChangeFocusType={onChangeFocusType}
-				onChangeFocusPosition={onChangeFocusPosition}
+				onChangeMobileAttributes={onChangeMobileAttributes}
+				onChangeTabletAttributes={onChangeTabletAttributes}
+				onChangeDesktopAttributes={onChangeDesktopAttributes}
 			/>
 			<div
 				{...useBlockProps({ className: "splide" })}

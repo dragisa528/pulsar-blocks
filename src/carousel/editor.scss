@@ -9,20 +9,11 @@
 }
 .inspector-controls {
 	.__animation {
-		width: 100%;
-		display: block;
 		margin-top: 10px;
-		margin-bottom: 20px;
-
-		> .__button-group {
-			display: flex;
-			* {
-				flex-grow: 1;
-				justify-content: center;
-			}
-		}
 	}
 
+	.__animation,
+	.__breakpoints,
 	.__slides-per-page,
 	.__per-move,
 	.__gap,
@@ -32,6 +23,8 @@
 		margin-bottom: 20px;
 	}
 
+	.__animation,
+	.__breakpoints,
 	.__focus {
 		> .__button-group {
 			display: flex;
@@ -40,7 +33,9 @@
 				justify-content: center;
 			}
 		}
+	}
 
+	.__focus {
 		> .__range-control {
 			margin-top: 15px;
 		}
