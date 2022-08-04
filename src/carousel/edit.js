@@ -14,7 +14,7 @@ import { __ } from "@wordpress/i18n";
 
 import { useBlockProps, useInnerBlocksProps } from "@wordpress/block-editor";
 
-import { useState } from "@wordpress/element";
+import { useState, useEffect } from "@wordpress/element";
 
 import CarouselControls from "./components/CarouselControls";
 
@@ -60,7 +60,6 @@ export default function Edit({ attributes, setAttributes }) {
 		arrows,
 		pagination,
 		type,
-		//focus: focusType === "number" ? focusPosition : focusType,
 	});
 
 	const onChangeAutoplayEnabled = () => {
@@ -95,39 +94,36 @@ export default function Edit({ attributes, setAttributes }) {
 		setAttributes({ desktopOptions: object });
 	};
 
-	/*
-	const onChangeSlidesPerPage = (number) => {
-		setAttributes({ perPage: number });
-		setSplideJSONData({ ...splideJSONData, perPage: number });
-	};
+	useEffect(() => {
+		let mobile = { ...mobileOptions };
+		mobile.focus =
+			mobile.focusType === "number" ? mobile.focusPosition : mobile.focusType;
+		delete mobile.focusPosition;
+		delete mobile.focusType;
 
-	const onChangeSlidesPerMove = (number) => {
-		setAttributes({ perMove: number });
-		setSplideJSONData({ ...splideJSONData, perMove: number });
-	};
+		let tablet = { ...tabletOptions };
+		tablet.focus =
+			tablet.focusType === "number" ? tablet.focusPosition : tablet.focusType;
+		delete tablet.focusPosition;
+		delete tablet.focusType;
 
-	const onChangeSlideGap = (number) => {
-		setAttributes({ gap: number });
-		setSplideJSONData({ ...splideJSONData, gap: number });
-	};
+		let desktop = { ...desktopOptions };
+		desktop.focus =
+			desktop.focusType === "number"
+				? desktop.focusPosition
+				: desktop.focusType;
+		delete desktop.focusPosition;
+		delete desktop.focusType;
 
-	const onChangeFocusType = (type) => {
-		setAttributes({ focusType: type });
 		setSplideJSONData({
 			...splideJSONData,
-			focus: focusType === "number" ? focusPosition : focusType,
+			breakpoints: {
+				640: mobile,
+				1024: tablet,
+				1280: desktop,
+			},
 		});
-	};
-
-	const onChangeFocusPosition = (position) => {
-		setAttributes({ focusPosition: position });
-		setSplideJSONData({
-			...splideJSONData,
-			focus: position,
-		});
-	};
-
-	*/
+	}, [desktopOptions, mobileOptions, tabletOptions]);
 
 	const blockProps = useBlockProps({ className: "splide__list" });
 
