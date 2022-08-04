@@ -1,7 +1,7 @@
 {
-	"name": "pulsar-blocks",
+	"name": "pulsar-toolkit",
 	"version": "0.1.0",
-	"description": "A collection of blocks for the pulsar theme.",
+	"description": "A toolkit of useful blocks and libraries.",
 	"author": "eighteen73",
 	"license": "MIT",
 	"scripts": {
@@ -17,5 +17,10 @@
 	},
 	"devDependencies": {
 		"@wordpress/scripts": "^23.6.0"
+	},
+	"dependencies": {
+		"@splidejs/splide": "4.0.7",
+		"@wordpress/icons": "^9.5.0",
+		"alpinejs": "3.10.3"
 	}
 }

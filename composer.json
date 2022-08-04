@@ -1,7 +1,7 @@
 {
-	"name": "eighteen73/pulsar-blocks",
-	"description": "A collection of blocks for the pulsar theme.",
-	"type": "wordpress-plugin",
+	"name": "eighteen73/pulsar-toolkit",
+	"description": "A toolkit of useful blocks and libraries.",
+	"type": "wordpress-muplugin",
 	"license": "MIT",
 	"minimum-stability": "stable",
 	"require": {

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "pulsar-toolkit/carousel-slide",
+  "version": "0.1.0",
+  "title": "Slide",
+  "category": "layout",
+  "parent": [
+    "pulsar-toolkit/carousel"
+  ],
+  "textdomain": "pulsar-toolkit",
+  "editorScript": "file:./index.js"
+}

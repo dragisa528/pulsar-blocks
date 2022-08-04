@@ -10,9 +10,13 @@
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/richtext/
  */
-import { useBlockProps, RichText } from '@wordpress/block-editor';
-import { useSelect } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
+import { __ } from "@wordpress/i18n";
+
+import { useBlockProps, useInnerBlocksProps } from "@wordpress/block-editor";
+
+import { useState, useEffect } from "@wordpress/element";
+
+import CarouselControls from "./components/CarouselControls";
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -20,7 +24,15 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
  */
-import './editor.css';
+import "./editor.scss";
+
+const ALLOWED_BLOCKS = ["pulsar-toolkit/carousel-slide"];
+const TEMPLATE = [
+	["pulsar-toolkit/carousel-slide"],
+	["pulsar-toolkit/carousel-slide"],
+	["pulsar-toolkit/carousel-slide"],
+	["pulsar-toolkit/carousel-slide"],
+];
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -32,21 +44,122 @@ import './editor.css';
  * @param {Function} param0.setAttributes
  * @return {WPElement} Element to render.
  */
-export default function Edit( { attributes: { message }, setAttributes } ) {
-	const { title } = useSelect(
-		( select ) => select( 'core' ).getSite() ?? {}
-	);
+export default function Edit({ attributes, setAttributes }) {
+	const {
+		autoplay,
+		arrows,
+		pagination,
+		type,
+		mobileOptions,
+		tabletOptions,
+		desktopOptions,
+	} = attributes;
+
+	const [splideJSONData, setSplideJSONData] = useState({
+		autoplay,
+		arrows,
+		pagination,
+		type,
+	});
+
+	const onChangeAutoplayEnabled = () => {
+		setAttributes({ autoplay: !autoplay });
+		setSplideJSONData({ ...splideJSONData, autoplay: !autoplay });
+	};
+
+	const onChangeArrowsEnabled = () => {
+		setAttributes({ arrows: !arrows });
+		setSplideJSONData({ ...splideJSONData, arrows: !arrows });
+	};
+
+	const onChangePaginationEnabled = () => {
+		setAttributes({ pagination: !pagination });
+		setSplideJSONData({ ...splideJSONData, pagination: !pagination });
+	};
+
+	const onChangeAnimationMode = (mode) => {
+		setAttributes({ type: mode });
+		setSplideJSONData({ ...splideJSONData, type: mode });
+	};
+
+	const onChangeMobileAttributes = (object) => {
+		setAttributes({ mobileOptions: object });
+	};
+
+	const onChangeTabletAttributes = (object) => {
+		setAttributes({ tabletOptions: object });
+	};
+
+	const onChangeDesktopAttributes = (object) => {
+		setAttributes({ desktopOptions: object });
+	};
+
+	useEffect(() => {
+		let mobile = { ...mobileOptions };
+		mobile.focus =
+			mobile.focusType === "number" ? mobile.focusPosition : mobile.focusType;
+		delete mobile.focusPosition;
+		delete mobile.focusType;
+
+		let tablet = { ...tabletOptions };
+		tablet.focus =
+			tablet.focusType === "number" ? tablet.focusPosition : tablet.focusType;
+		delete tablet.focusPosition;
+		delete tablet.focusType;
+
+		let desktop = { ...desktopOptions };
+		desktop.focus =
+			desktop.focusType === "number"
+				? desktop.focusPosition
+				: desktop.focusType;
+		delete desktop.focusPosition;
+		delete desktop.focusType;
+
+		setSplideJSONData({
+			...splideJSONData,
+			breakpoints: {
+				640: mobile,
+				1024: tablet,
+				1280: desktop,
+			},
+		});
+	}, [desktopOptions, mobileOptions, tabletOptions]);
+
+	const blockProps = useBlockProps({ className: "splide__list" });
+
+	const innerBlocksProps = useInnerBlocksProps(blockProps, {
+		orientation: "horizontal",
+		template: TEMPLATE,
+		allowedBlocks: ALLOWED_BLOCKS,
+	});
 
 	return (
-		<p { ...useBlockProps() }>
-			<RichText
-				tagName="span"
-				value={ message }
-				onChange={ ( newMessage ) =>
-					setAttributes( { message: newMessage } )
-				}
+		<>
+			<CarouselControls
+				autoplay={autoplay}
+				arrows={arrows}
+				pagination={pagination}
+				type={type}
+				mobileOptions={mobileOptions}
+				tabletOptions={tabletOptions}
+				desktopOptions={desktopOptions}
+				onChangeAutoplayEnabled={onChangeAutoplayEnabled}
+				onChangeArrowsEnabled={onChangeArrowsEnabled}
+				onChangePaginationEnabled={onChangePaginationEnabled}
+				onChangeAnimationMode={onChangeAnimationMode}
+				onChangeMobileAttributes={onChangeMobileAttributes}
+				onChangeTabletAttributes={onChangeTabletAttributes}
+				onChangeDesktopAttributes={onChangeDesktopAttributes}
 			/>
-			<span> | { title ?? __( 'loading…', 'pulsar-blocks' ) }</span>
-		</p>
+			<div
+				{...useBlockProps({ className: "splide" })}
+				aria-label=""
+				data-splide={`'${JSON.stringify(splideJSONData)}'`}
+			>
+				<div className="splide__track">
+					<ul {...innerBlocksProps}></ul>
+				</div>
+			</div>
+		</>
 	);
 }
