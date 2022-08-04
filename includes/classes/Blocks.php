@@ -31,7 +31,7 @@ class Blocks implements Bootable {
 	 * @throws \Exception If no template file is found
 	 */
 	public function register() {
-		$blocks_directory = PULSAR_TOOLKIT_BUILD;
+		$blocks_directory = trailingslashit( PULSAR_TOOLKIT_PATH . 'build' );
 
 		// Register all the blocks in the theme
 		if ( file_exists( $blocks_directory ) ) {

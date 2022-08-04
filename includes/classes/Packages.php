@@ -1,6 +1,6 @@
 <?php
 /**
- * Library registration and management.
+ * Packages registration and management.
  *
  * @package PulsarToolkit
  */
@@ -10,9 +10,9 @@ namespace PulsarToolkit;
 use PulsarToolkit\Contracts\Bootable;
 
 /**
- * Libraries class.
+ * Packages class.
  */
-class Libraries implements Bootable {
+class Packages implements Bootable {
 
 	/**
 	 * Constructor.
@@ -22,13 +22,13 @@ class Libraries implements Bootable {
 	}
 
 	/**
-	 * Registers the libraries.
+	 * Registers the packages.
 	 */
 	public function register() {
 
 		wp_register_script(
 			'alpine',
-			PULSAR_TOOLKIT_LIBRARIES . 'alpinejs.js',
+			PULSAR_TOOLKIT_URL . 'build/packages/alpinejs.js',
 			[],
 			$this->get_version( 'alpinejs' ),
 			true
@@ -36,16 +36,19 @@ class Libraries implements Bootable {
 
 		wp_register_script(
 			'splide',
-			PULSAR_TOOLKIT_LIBRARIES . 'splidejs.js',
+			PULSAR_TOOLKIT_URL . 'build/packages/splidejs.js',
 			[],
 			$this->get_version( '@splidejs/splide' ),
 			true
 		);
+
+		wp_enqueue_script( 'alpine' );
+		wp_enqueue_script( 'splide' );
 	}
 
 	/**
-	 * Check package.json for the version number of this library.
-	 * Library versions should be locked to specific versions to avoid issues.
+	 * Check package.json for the version number of this script.
+	 * Package versions should be locked to specific versions to avoid issues.
 	 *
 	 * @param $package_name The name of the package from package.json
 	 * @return mixed

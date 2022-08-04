@@ -21,8 +21,6 @@ defined( 'ABSPATH' ) || exit;
 // Useful global constants.
 define( 'PULSAR_TOOLKIT_URL', plugin_dir_url( __FILE__ ) );
 define( 'PULSAR_TOOLKIT_PATH', plugin_dir_path( __FILE__ ) );
-define( 'PULSAR_TOOLKIT_BUILD', PULSAR_TOOLKIT_PATH . 'build/' );
-define( 'PULSAR_TOOLKIT_LIBRARIES', PULSAR_TOOLKIT_BUILD . 'libraries/' );
 
 // Boot the plugin.
 require_once PULSAR_TOOLKIT_PATH . 'includes/autoload.php';

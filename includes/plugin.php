@@ -23,7 +23,7 @@ function plugin( string $abstract = '' ) {
 	if ( is_null( $classes ) ) {
 		$bindings = [
 			\PulsarToolkit\Blocks::class,
-			\PulsarToolkit\Libraries::class,
+			\PulsarToolkit\Packages::class,
 		];
 
 		foreach ( $bindings as $binding ) {
