@@ -26,12 +26,12 @@ import CarouselControls from "./components/CarouselControls";
  */
 import "./editor.scss";
 
-const ALLOWED_BLOCKS = ["pulsar-blocks/carousel-slide"];
+const ALLOWED_BLOCKS = ["pulsar-toolkit/carousel-slide"];
 const TEMPLATE = [
-	["pulsar-blocks/carousel-slide"],
-	["pulsar-blocks/carousel-slide"],
-	["pulsar-blocks/carousel-slide"],
-	["pulsar-blocks/carousel-slide"],
+	["pulsar-toolkit/carousel-slide"],
+	["pulsar-toolkit/carousel-slide"],
+	["pulsar-toolkit/carousel-slide"],
+	["pulsar-toolkit/carousel-slide"],
 ];
 
 /**

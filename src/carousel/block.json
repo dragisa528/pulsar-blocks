@@ -1,7 +1,7 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 2,
-	"name": "pulsar-blocks/carousel",
+	"name": "pulsar-toolkit/carousel",
 	"version": "0.1.0",
 	"title": "Carousel",
 	"category": "text",
@@ -122,7 +122,7 @@
 	"supports": {
 		"html": false
 	},
-	"textdomain": "pulsar-blocks",
+	"textdomain": "pulsar-toolkit",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
 	"style": "file:./style-index.css"

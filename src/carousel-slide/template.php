@@ -8,7 +8,7 @@
  * @param string   $content        Rendered block output. ie. <InnerBlocks.Content />.
  * @param WP_Block $block_instance The instance of the WP_Block class that represents the block being rendered.
  *
- * @package Pulsar\Blocks
+ * @package PulsarToolkit
  * @version 0.1.0
  */
 
