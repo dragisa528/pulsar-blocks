@@ -3,11 +3,7 @@
  */
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 
-const ALLOWED_INNER_BLOCKS = [
-	'core/heading',
-	'core/paragraph',
-	'core/buttons',
-];
+const ALLOWED_INNER_BLOCKS = ['core/heading', 'core/paragraph', 'core/buttons'];
 
 /**
  * The save function describes the structure of your block in the context of the
@@ -16,15 +12,15 @@ const ALLOWED_INNER_BLOCKS = [
  * @return {WPElement} Element to render.
  */
 export default function Edit() {
-	const blockProps = useBlockProps( {
+	const blockProps = useBlockProps({
 		className: 'splide__slide',
-	} );
+	});
 
 	return (
-		<div { ...blockProps }>
+		<div {...blockProps}>
 			<InnerBlocks
-				allowedBlocks={ ALLOWED_INNER_BLOCKS }
-				renderAppender={ () => <InnerBlocks.ButtonBlockAppender /> }
+				allowedBlocks={ALLOWED_INNER_BLOCKS}
+				renderAppender={() => <InnerBlocks.ButtonBlockAppender />}
 			/>
 		</div>
 	);

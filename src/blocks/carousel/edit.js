@@ -10,13 +10,13 @@
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/richtext/
  */
-import { __ } from "@wordpress/i18n";
+import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 
-import { useBlockProps, useInnerBlocksProps } from "@wordpress/block-editor";
+import { useState, useEffect } from '@wordpress/element';
 
-import { useState, useEffect } from "@wordpress/element";
+import CarouselControls from './components/CarouselControls';
 
-import CarouselControls from "./components/CarouselControls";
+import Splide from '@splidejs/splide';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -24,14 +24,14 @@ import CarouselControls from "./components/CarouselControls";
  *
  * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
  */
-import "./editor.scss";
+import './editor.scss';
 
-const ALLOWED_BLOCKS = ["pulsar-toolkit/carousel-slide"];
+const ALLOWED_BLOCKS = ['pulsar-toolkit/carousel-slide'];
 const TEMPLATE = [
-	["pulsar-toolkit/carousel-slide"],
-	["pulsar-toolkit/carousel-slide"],
-	["pulsar-toolkit/carousel-slide"],
-	["pulsar-toolkit/carousel-slide"],
+	['pulsar-toolkit/carousel-slide'],
+	['pulsar-toolkit/carousel-slide'],
+	['pulsar-toolkit/carousel-slide'],
+	['pulsar-toolkit/carousel-slide'],
 ];
 
 /**
@@ -39,12 +39,12 @@ const TEMPLATE = [
  * editor. This represents what the editor will render when the block is used.
  *
  * @param {Object}   param0
+ * @param {Object}   param0.clientId
  * @param {Object}   param0.attributes
- * @param {string}   param0.attributes.message
  * @param {Function} param0.setAttributes
  * @return {WPElement} Element to render.
  */
-export default function Edit({ attributes, setAttributes }) {
+export default function Edit({ clientId, attributes, setAttributes }) {
 	const {
 		autoplay,
 		arrows,
@@ -94,22 +94,34 @@ export default function Edit({ attributes, setAttributes }) {
 		setAttributes({ desktopOptions: object });
 	};
 
+	const refreshCarousel = () => {
+		carousel.refresh();
+		setCarouselNeedsRefresh(!carouselNeedsRefresh);
+	};
+
+	const [carouselNeedsRefresh, setCarouselNeedsRefresh] = useState(false);
+	const [isInitialLoad, setInitialLoad] = useState(true);
+
 	useEffect(() => {
-		let mobile = { ...mobileOptions };
+		const mobile = { ...mobileOptions };
 		mobile.focus =
-			mobile.focusType === "number" ? mobile.focusPosition : mobile.focusType;
+			mobile.focusType === 'number'
+				? mobile.focusPosition
+				: mobile.focusType;
 		delete mobile.focusPosition;
 		delete mobile.focusType;
 
-		let tablet = { ...tabletOptions };
+		const tablet = { ...tabletOptions };
 		tablet.focus =
-			tablet.focusType === "number" ? tablet.focusPosition : tablet.focusType;
+			tablet.focusType === 'number'
+				? tablet.focusPosition
+				: tablet.focusType;
 		delete tablet.focusPosition;
 		delete tablet.focusType;
 
-		let desktop = { ...desktopOptions };
+		const desktop = { ...desktopOptions };
 		desktop.focus =
-			desktop.focusType === "number"
+			desktop.focusType === 'number'
 				? desktop.focusPosition
 				: desktop.focusType;
 		delete desktop.focusPosition;
@@ -123,12 +135,17 @@ export default function Edit({ attributes, setAttributes }) {
 				1280: desktop,
 			},
 		});
-	}, [desktopOptions, mobileOptions, tabletOptions]);
+	}, [carouselNeedsRefresh, desktopOptions, mobileOptions, tabletOptions]);
 
-	const blockProps = useBlockProps({ className: "splide__list" });
+	useEffect(() => {
+		const carousel = new Splide(`#block-${clientId}`).mount();
+		setInitialLoad(false);
+	}, [isInitialLoad]);
+
+	const blockProps = useBlockProps({ className: 'splide__list' });
 
 	const innerBlocksProps = useInnerBlocksProps(blockProps, {
-		orientation: "horizontal",
+		orientation: 'horizontal',
 		template: TEMPLATE,
 		allowedBlocks: ALLOWED_BLOCKS,
 	});
@@ -152,9 +169,9 @@ export default function Edit({ attributes, setAttributes }) {
 				onChangeDesktopAttributes={onChangeDesktopAttributes}
 			/>
 			<div
-				{...useBlockProps({ className: "splide" })}
+				{...useBlockProps({ className: 'splide' })}
 				aria-label=""
-				data-splide={`'${JSON.stringify(splideJSONData)}'`}
+				data-splide={JSON.stringify(splideJSONData)}
 			>
 				<div className="splide__track">
 					<ul {...innerBlocksProps}></ul>

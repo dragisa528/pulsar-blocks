@@ -20,6 +20,7 @@ class Blocks implements Bootable {
 	 */
 	public function boot() {
 		add_action( 'init', [ $this, 'register' ] );
+		add_action( 'wp_enqueue_scripts', [ $this, 'frontend_scripts' ] );
 	}
 
 	/**
@@ -31,7 +32,7 @@ class Blocks implements Bootable {
 	 * @throws \Exception If no template file is found
 	 */
 	public function register() {
-		$blocks_directory = trailingslashit( PULSAR_TOOLKIT_PATH . 'build' );
+		$blocks_directory = trailingslashit( PULSAR_TOOLKIT_PATH . 'build/blocks' );
 
 		// Register all the blocks in the theme
 		if ( file_exists( $blocks_directory ) ) {
@@ -69,6 +70,16 @@ class Blocks implements Bootable {
 		}
 	}
 
+	public function frontend_scripts() {
+		wp_enqueue_script(
+			'pulsar-toolkit-carousel',
+			PULSAR_TOOLKIT_URL . 'build/blocks/carousel/frontend.js',
+			[ 'splide' ],
+			null,
+			true
+		);
+	}
+
 	/**
 	 * Locate the template file for a block.
 	 * Searches in a child theme, followed by parent theme and lastly the plugin.
@@ -86,7 +97,7 @@ class Blocks implements Bootable {
 
 		// If no template was found in the theme, load it from the plugin instead.
 		if ( ! $template_path ) {
-			$template_path = PULSAR_TOOLKIT_PATH . "build/{$block_name}/{$template_file_name}";
+			$template_path = PULSAR_TOOLKIT_PATH . "build/blocks/{$block_name}/{$template_file_name}";
 		}
 
 		return $template_path;

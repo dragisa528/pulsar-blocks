@@ -16,11 +16,29 @@
 		"hot": "wp-scripts start --hot --webpack-copy-php"
 	},
 	"devDependencies": {
-		"@wordpress/scripts": "^23.6.0"
+		"@wordpress/scripts": "^23.6.0",
+		"copy-webpack-plugin": "^11.0.0"
 	},
 	"dependencies": {
 		"@splidejs/splide": "4.0.7",
 		"@wordpress/icons": "^9.5.0",
 		"alpinejs": "3.10.3"
+	},
+	"babel": {
+		"presets": [
+			"@wordpress/babel-preset-default"
+		]
+	},
+	"eslintConfig": {
+		"extends": [
+			"plugin:@wordpress/eslint-plugin/recommended"
+		]
+	},
+	"browserslist": [
+		"extends @wordpress/browserslist-config"
+	],
+	"prettier": "@wordpress/prettier-config",
+	"stylelint": {
+		"extends": "@wordpress/stylelint-config"
 	}
 }

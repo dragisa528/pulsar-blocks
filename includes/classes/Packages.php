@@ -15,10 +15,23 @@ use PulsarToolkit\Contracts\Bootable;
 class Packages implements Bootable {
 
 	/**
+	 * Packages to register for admin and the front end.
+	 * Should be in the format `handle` (reference when enqueueing) => `package_name`
+	 * (the name of the package when running npm i package_name).
+	 *
+	 * @var array
+	 */
+	public $packages = [
+		'alpine' => 'alpinejs',
+		'splide' => '@splidejs/splide',
+	];
+
+	/**
 	 * Constructor.
 	 */
 	public function boot() {
 		add_action( 'wp_enqueue_scripts', [ $this, 'register' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'admin_register' ] );
 	}
 
 	/**
@@ -26,24 +39,31 @@ class Packages implements Bootable {
 	 */
 	public function register() {
 
-		wp_register_script(
-			'alpine',
-			PULSAR_TOOLKIT_URL . 'build/packages/alpinejs.js',
-			[],
-			$this->get_version( 'alpinejs' ),
-			true
-		);
+		foreach ( $this->packages as $handle => $package_name ) {
 
-		wp_register_script(
-			'splide',
-			PULSAR_TOOLKIT_URL . 'build/packages/splidejs.js',
-			[],
-			$this->get_version( '@splidejs/splide' ),
-			true
-		);
+			wp_register_script(
+				$handle,
+				PULSAR_TOOLKIT_URL . "build/packages/{$handle}.js",
+				[],
+				$this->get_version( $package_name ),
+			);
+		}
+	}
 
-		wp_enqueue_script( 'alpine' );
-		wp_enqueue_script( 'splide' );
+	/**
+	 * Registers the packages.
+	 */
+	public function admin_register() {
+
+		foreach ( $this->packages as $handle => $package_name ) {
+
+			wp_register_script(
+				$handle,
+				PULSAR_TOOLKIT_URL . "build/packages/{$handle}.js",
+				[],
+				$this->get_version( $package_name ),
+			);
+		}
 	}
 
 	/**

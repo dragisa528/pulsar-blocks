@@ -113,14 +113,6 @@
       }
     }
   },
-  "example": {
-    "attributes": {
-      "message": "Example Dynamic Block"
-    }
-  },
-  "supports": {
-    "html": false
-  },
   "textdomain": "pulsar-toolkit",
   "editorScript": "file:./index.js",
   "editorStyle": "file:./index.css",

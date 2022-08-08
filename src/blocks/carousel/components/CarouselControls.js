@@ -1,4 +1,4 @@
-import { InspectorControls } from "@wordpress/block-editor";
+import { InspectorControls } from '@wordpress/block-editor';
 
 import {
 	PanelBody,
@@ -7,22 +7,28 @@ import {
 	RangeControl,
 	__experimentalRadio as Radio,
 	__experimentalRadioGroup as RadioGroup,
-} from "@wordpress/components";
+} from '@wordpress/components';
 
-import { more } from "@wordpress/icons";
+import { more } from '@wordpress/icons';
 
-import { useState, useEffect } from "@wordpress/element";
+import { useState, useEffect } from '@wordpress/element';
 
 function CarouselControls(props) {
 	const [isAutoplayEnabled, setIsAutoplayEnabled] = useState(props.autoplay);
-	const [isShowArrowsEnabled, setIsShowArrowsEnabled] = useState(props.arrows);
+	const [isShowArrowsEnabled, setIsShowArrowsEnabled] = useState(
+		props.arrows
+	);
 	const [isPaginationEnabled, setIsPaginationEnabled] = useState(
 		props.pagination
 	);
 	const [animationMode, setAnimationMode] = useState(props.type);
-	const [breakpointScreen, setBreakpointScreen] = useState("desktop");
-	const [mobileAttributes, setMobileAttributes] = useState(props.mobileOptions);
-	const [tabletAttributes, setTabletAttributes] = useState(props.tabletOptions);
+	const [breakpointScreen, setBreakpointScreen] = useState('desktop');
+	const [mobileAttributes, setMobileAttributes] = useState(
+		props.mobileOptions
+	);
+	const [tabletAttributes, setTabletAttributes] = useState(
+		props.tabletOptions
+	);
 	const [desktopAttributes, setDesktopAttributes] = useState(
 		props.desktopOptions
 	);
@@ -107,19 +113,19 @@ function CarouselControls(props) {
 							<Radio value="mobile">mobile</Radio>
 						</RadioGroup>
 
-						{breakpointScreen === "desktop" && (
+						{breakpointScreen === 'desktop' && (
 							<BreakpointScreenOptions
 								options={desktopAttributes}
 								onChangeAttribute={onChangeDesktopAttribute}
 							/>
 						)}
-						{breakpointScreen === "tablet" && (
+						{breakpointScreen === 'tablet' && (
 							<BreakpointScreenOptions
 								options={tabletAttributes}
 								onChangeAttribute={onChangeTabletAttribute}
 							/>
 						)}
-						{breakpointScreen === "mobile" && (
+						{breakpointScreen === 'mobile' && (
 							<BreakpointScreenOptions
 								options={mobileAttributes}
 								onChangeAttribute={onChangeMobileAttribute}
@@ -165,7 +171,7 @@ function BreakpointScreenOptions(props) {
 		props.options.focusPosition
 	);
 	const [focusSliderMarks, setFocusSliderMarks] = useState([
-		{ value: 1, label: "1" },
+		{ value: 1, label: '1' },
 	]);
 
 	const onChangePerPage = (number) => {
@@ -194,11 +200,11 @@ function BreakpointScreenOptions(props) {
 	};
 
 	const generateFocusPositionMarks = () => {
-		let marks = [];
+		const marks = [];
 		for (let i = 1; i <= perPage; i++) {
 			marks[i] = {
 				value: i,
-				label: "" + i,
+				label: '' + i,
 			};
 		}
 
@@ -224,23 +230,23 @@ function BreakpointScreenOptions(props) {
 					marks={[
 						{
 							value: 1,
-							label: "1",
+							label: '1',
 						},
 						{
 							value: 2,
-							label: "2",
+							label: '2',
 						},
 						{
 							value: 3,
-							label: "3",
+							label: '3',
 						},
 						{
 							value: 4,
-							label: "4",
+							label: '4',
 						},
 						{
 							value: 5,
-							label: "5",
+							label: '5',
 						},
 					]}
 					value={perPage}
@@ -262,23 +268,23 @@ function BreakpointScreenOptions(props) {
 					marks={[
 						{
 							value: 1,
-							label: "1",
+							label: '1',
 						},
 						{
 							value: 2,
-							label: "2",
+							label: '2',
 						},
 						{
 							value: 3,
-							label: "3",
+							label: '3',
 						},
 						{
 							value: 4,
-							label: "4",
+							label: '4',
 						},
 						{
 							value: 5,
-							label: "5",
+							label: '5',
 						},
 					]}
 					value={perMove}
@@ -300,27 +306,27 @@ function BreakpointScreenOptions(props) {
 					marks={[
 						{
 							value: 0,
-							label: "0",
+							label: '0',
 						},
 						{
 							value: 20,
-							label: "20",
+							label: '20',
 						},
 						{
 							value: 40,
-							label: "40",
+							label: '40',
 						},
 						{
 							value: 60,
-							label: "60",
+							label: '60',
 						},
 						{
 							value: 80,
-							label: "80",
+							label: '80',
 						},
 						{
 							value: 100,
-							label: "100",
+							label: '100',
 						},
 					]}
 					value={gap}
@@ -342,7 +348,7 @@ function BreakpointScreenOptions(props) {
 					<Radio value="number">number</Radio>
 				</RadioGroup>
 
-				{focusType === "number" && (
+				{focusType === 'number' && (
 					<RangeControl
 						help="Additional info about this."
 						step={1}
