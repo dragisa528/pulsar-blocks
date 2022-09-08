@@ -43,7 +43,10 @@ const TEMPLATE = [
  * @param {Object}   param0.attributes
  * @param {Function} param0.setAttributes
  * @return {WPElement} Element to render.
+ *
+ *
  */
+
 export default function Edit({ clientId, attributes, setAttributes }) {
 	const {
 		autoplay,
@@ -61,6 +64,8 @@ export default function Edit({ clientId, attributes, setAttributes }) {
 		pagination,
 		type,
 	});
+
+	const [carousel, setCarousel] = useState({});
 
 	const onChangeAutoplayEnabled = () => {
 		setAttributes({ autoplay: !autoplay });
@@ -94,13 +99,19 @@ export default function Edit({ clientId, attributes, setAttributes }) {
 		setAttributes({ desktopOptions: object });
 	};
 
-	const refreshCarousel = () => {
-		carousel.refresh();
-		setCarouselNeedsRefresh(!carouselNeedsRefresh);
-	};
+	//const [isInitialLoad, setInitialLoad] = useState(true);
 
-	const [carouselNeedsRefresh, setCarouselNeedsRefresh] = useState(false);
-	const [isInitialLoad, setInitialLoad] = useState(true);
+	useEffect(() => {
+		if (Object.keys(carousel).length !== 0) {
+			//some of these options are not reponsive and therefore can't be updated on the fly
+			carousel.options = splideJSONData;
+			//carousel.breakpoints(desktopOptions);
+			carousel.refresh();
+			//carousel.destroy(false);
+		}
+	}, [splideJSONData]);
+
+	//const [carouselNeedsRefresh, setCarouselNeedsRefresh] = useState(false);
 
 	useEffect(() => {
 		const mobile = { ...mobileOptions };
@@ -135,12 +146,13 @@ export default function Edit({ clientId, attributes, setAttributes }) {
 				1280: desktop,
 			},
 		});
-	}, [carouselNeedsRefresh, desktopOptions, mobileOptions, tabletOptions]);
+	}, [desktopOptions, mobileOptions, tabletOptions]);
 
 	useEffect(() => {
-		const carousel = new Splide(`#block-${clientId}`).mount();
-		setInitialLoad(false);
-	}, [isInitialLoad]);
+		const splide = new Splide(`#block-${clientId}`);
+		setCarousel(splide.mount());
+		//splide.mount();
+	}, []);
 
 	const blockProps = useBlockProps({ className: 'splide__list' });
 

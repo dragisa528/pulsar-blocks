@@ -83,7 +83,6 @@ function CarouselControls(props) {
 			<InspectorControls>
 				<PanelBody
 					title="General"
-					icon={more}
 					initialOpen={true}
 					className="inspector-controls"
 				>
@@ -100,8 +99,39 @@ function CarouselControls(props) {
 							<Radio value="fade">fade</Radio>
 						</RadioGroup>
 					</PanelRow>
+
+					<PanelRow>
+						<ToggleControl
+							label="Autoplay"
+							help="Help message for autoplay enabling"
+							checked={isAutoplayEnabled}
+							onChange={onChangeAutoplayEnabled}
+						/>
+					</PanelRow>
+					<PanelRow>
+						<ToggleControl
+							label="Show Arrows"
+							help="Help message for showing arrows"
+							checked={isShowArrowsEnabled}
+							onChange={onChangeArrowsEnabled}
+						/>
+					</PanelRow>
+					<PanelRow>
+						<ToggleControl
+							label="Show Pagination"
+							help="Help message for showing pagination"
+							checked={isPaginationEnabled}
+							onChange={onChangePaginationEnabled}
+						/>
+					</PanelRow>
+				</PanelBody>
+				<PanelBody
+					title="Responsive"
+					initialOpen={false}
+					className="inspector-controls"
+				>
 					<PanelRow className="__breakpoints">
-						<h2>Breakpoint Options</h2>
+						<h2>Breakpoint Screen</h2>
 						<RadioGroup
 							onChange={onChangeBreakpointScreen}
 							label="breakpoints"
@@ -131,30 +161,6 @@ function CarouselControls(props) {
 								onChangeAttribute={onChangeMobileAttribute}
 							/>
 						)}
-					</PanelRow>
-					<PanelRow>
-						<ToggleControl
-							label="Autoplay"
-							help="Help message for autoplay enabling"
-							checked={isAutoplayEnabled}
-							onChange={onChangeAutoplayEnabled}
-						/>
-					</PanelRow>
-					<PanelRow>
-						<ToggleControl
-							label="Show Arrows"
-							help="Help message for showing arrows"
-							checked={isShowArrowsEnabled}
-							onChange={onChangeArrowsEnabled}
-						/>
-					</PanelRow>
-					<PanelRow>
-						<ToggleControl
-							label="Show Pagination"
-							help="Help message for showing pagination"
-							checked={isPaginationEnabled}
-							onChange={onChangePaginationEnabled}
-						/>
 					</PanelRow>
 				</PanelBody>
 			</InspectorControls>
