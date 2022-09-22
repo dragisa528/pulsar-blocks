@@ -10,13 +10,23 @@
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/richtext/
  */
-import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
+import {
+	useBlockProps,
+	useInnerBlocksProps,
+	BlockControls,
+} from '@wordpress/block-editor';
 
 import { useState, useEffect } from '@wordpress/element';
 
 import CarouselControls from './components/CarouselControls';
 
 import Splide from '@splidejs/splide';
+
+import { dispatch, select } from '@wordpress/data';
+
+import { Button, ToolbarButton } from '@wordpress/components';
+
+import { createBlock } from '@wordpress/blocks';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -27,12 +37,14 @@ import Splide from '@splidejs/splide';
 import './editor.scss';
 
 const ALLOWED_BLOCKS = ['pulsar-toolkit/carousel-slide'];
+/*
 const TEMPLATE = [
 	['pulsar-toolkit/carousel-slide'],
 	['pulsar-toolkit/carousel-slide'],
 	['pulsar-toolkit/carousel-slide'],
 	['pulsar-toolkit/carousel-slide'],
 ];
+*/
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -63,6 +75,9 @@ export default function Edit({ clientId, attributes, setAttributes }) {
 		arrows,
 		pagination,
 		type,
+		...desktopOptions,
+		...tabletOptions,
+		...mobileOptions,
 	});
 
 	const [carousel, setCarousel] = useState({});
@@ -84,7 +99,7 @@ export default function Edit({ clientId, attributes, setAttributes }) {
 
 	const onChangeAnimationMode = (mode) => {
 		setAttributes({ type: mode });
-		setSplideJSONData({ ...splideJSONData, type: mode });
+		//setSplideJSONData({ ...splideJSONData, type: mode });
 	};
 
 	const onChangeMobileAttributes = (object) => {
@@ -99,19 +114,12 @@ export default function Edit({ clientId, attributes, setAttributes }) {
 		setAttributes({ desktopOptions: object });
 	};
 
-	//const [isInitialLoad, setInitialLoad] = useState(true);
-
 	useEffect(() => {
-		if (Object.keys(carousel).length !== 0) {
-			//some of these options are not reponsive and therefore can't be updated on the fly
-			carousel.options = splideJSONData;
-			//carousel.breakpoints(desktopOptions);
-			carousel.refresh();
-			//carousel.destroy(false);
-		}
-	}, [splideJSONData]);
+		if (Object.keys(carousel).length !== 0) carousel.destroy(false);
 
-	//const [carouselNeedsRefresh, setCarouselNeedsRefresh] = useState(false);
+		const splide = new Splide(`#block-${clientId}`, splideJSONData);
+		setCarousel(splide.mount());
+	}, [splideJSONData]);
 
 	useEffect(() => {
 		const mobile = { ...mobileOptions };
@@ -148,18 +156,23 @@ export default function Edit({ clientId, attributes, setAttributes }) {
 		});
 	}, [desktopOptions, mobileOptions, tabletOptions]);
 
-	useEffect(() => {
-		const splide = new Splide(`#block-${clientId}`);
-		setCarousel(splide.mount());
-		//splide.mount();
-	}, []);
+	const addBlock = () => {
+		const innerBlocks =
+			select('core/editor').getBlocksByClientId(clientId)[0].innerBlocks;
+		const block = createBlock('pulsar-toolkit/carousel-slide');
+		dispatch('core/editor').insertBlock(
+			block,
+			innerBlocks.length,
+			clientId
+		);
+	};
 
 	const blockProps = useBlockProps({ className: 'splide__list' });
 
 	const innerBlocksProps = useInnerBlocksProps(blockProps, {
 		orientation: 'horizontal',
-		template: TEMPLATE,
 		allowedBlocks: ALLOWED_BLOCKS,
+		renderAppender: false,
 	});
 
 	return (
@@ -180,15 +193,25 @@ export default function Edit({ clientId, attributes, setAttributes }) {
 				onChangeTabletAttributes={onChangeTabletAttributes}
 				onChangeDesktopAttributes={onChangeDesktopAttributes}
 			/>
+			<BlockControls>
+				<ToolbarButton icon="insert" onClick={addBlock} />
+			</BlockControls>
 			<div
 				{...useBlockProps({ className: 'splide' })}
 				aria-label=""
-				data-splide={JSON.stringify(splideJSONData)}
+				/*data-splide={JSON.stringify(splideJSONData)}*/
 			>
 				<div className="splide__track">
 					<ul {...innerBlocksProps}></ul>
 				</div>
 			</div>
+			<Button
+				className="insert-slide"
+				variant="primary"
+				onClick={addBlock}
+			>
+				Insert Slide
+			</Button>
 		</>
 	);
 }
