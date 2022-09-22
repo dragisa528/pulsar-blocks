@@ -6,6 +6,10 @@
   "title": "Carousel",
   "category": "text",
   "attributes": {
+    "mediaQuery": {
+      "type": "string",
+      "default": "min"
+    },
     "autoplay": {
       "type": "boolean",
       "default": false

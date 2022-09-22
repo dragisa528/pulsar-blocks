@@ -61,6 +61,7 @@ const TEMPLATE = [
 
 export default function Edit({ clientId, attributes, setAttributes }) {
 	const {
+		mediaQuery,
 		autoplay,
 		arrows,
 		pagination,
@@ -71,6 +72,7 @@ export default function Edit({ clientId, attributes, setAttributes }) {
 	} = attributes;
 
 	const [splideJSONData, setSplideJSONData] = useState({
+		mediaQuery,
 		autoplay,
 		arrows,
 		pagination,
