@@ -1,15 +1,3 @@
-/**
- * useBlockProps is a React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
- *
- * RichText is a component that allows developers to render a contenteditable input,
- * providing users with the option to format block content to make it bold, italics,
- * linked, or use other formatting.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/richtext/
- */
 import {
 	useBlockProps,
 	useInnerBlocksProps,
@@ -28,12 +16,6 @@ import { Button, ToolbarButton } from '@wordpress/components';
 
 import { createBlock } from '@wordpress/blocks';
 
-/**
- * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
- * Those files can contain any CSS code that gets applied to the editor.
- *
- * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
- */
 import './editor.scss';
 
 const ALLOWED_BLOCKS = ['pulsar-toolkit/carousel-slide'];
@@ -71,17 +53,6 @@ export default function Edit({ clientId, attributes, setAttributes }) {
 		desktopOptions,
 	} = attributes;
 
-	const [splideJSONData, setSplideJSONData] = useState({
-		mediaQuery,
-		autoplay,
-		arrows,
-		pagination,
-		type,
-		...desktopOptions,
-		...tabletOptions,
-		...mobileOptions,
-	});
-
 	const [carousel, setCarousel] = useState({});
 
 	const onChangeAutoplayEnabled = () => {
@@ -101,7 +72,7 @@ export default function Edit({ clientId, attributes, setAttributes }) {
 
 	const onChangeAnimationMode = (mode) => {
 		setAttributes({ type: mode });
-		//setSplideJSONData({ ...splideJSONData, type: mode });
+		setSplideJSONData({ ...splideJSONData, type: mode });
 	};
 
 	const onChangeMobileAttributes = (object) => {
@@ -116,14 +87,12 @@ export default function Edit({ clientId, attributes, setAttributes }) {
 		setAttributes({ desktopOptions: object });
 	};
 
-	useEffect(() => {
-		if (Object.keys(carousel).length !== 0) carousel.destroy(false);
-
-		const splide = new Splide(`#block-${clientId}`, splideJSONData);
-		setCarousel(splide.mount());
-	}, [splideJSONData]);
-
-	useEffect(() => {
+	/**
+	 * Transform FocusType and FocusPosition into
+	 * a single key 'focus' for each breakpoint screen
+	 * https://splidejs.com/guides/options/#focus
+	 */
+	const transformFocusType = () => {
 		const mobile = { ...mobileOptions };
 		mobile.focus =
 			mobile.focusType === 'number'
@@ -148,12 +117,44 @@ export default function Edit({ clientId, attributes, setAttributes }) {
 		delete desktop.focusPosition;
 		delete desktop.focusType;
 
+		return { desktop, tablet, mobile };
+	};
+
+	const focusPositions = transformFocusType();
+	const [splideJSONData, setSplideJSONData] = useState({
+		mediaQuery,
+		autoplay,
+		arrows,
+		pagination,
+		type,
+		breakpoints: {
+			640: focusPositions.mobile,
+			1024: focusPositions.tablet,
+			1280: focusPositions.desktop,
+		},
+		//trimSpace: false,
+	});
+
+	useEffect(() => {
+		if (Object.keys(carousel).length === 0) {
+			const splide = new Splide(`#block-${clientId}`, splideJSONData);
+			setCarousel(splide.mount());
+			return;
+		}
+		carousel.destroy(false); //Only works if you pass in false. Passing in true prevents you from focusing on the carousel.
+		carousel.options = splideJSONData;
+		carousel.mount();
+	}, [splideJSONData]);
+
+	useEffect(() => {
+		const breakpoints = transformFocusType();
 		setSplideJSONData({
 			...splideJSONData,
+			//trimSpace: false,
 			breakpoints: {
-				640: mobile,
-				1024: tablet,
-				1280: desktop,
+				640: breakpoints.mobile,
+				1024: breakpoints.tablet,
+				1280: breakpoints.desktop,
 			},
 		});
 	}, [desktopOptions, mobileOptions, tabletOptions]);
