@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       Pulsar Blocks old
+ * Plugin Name:       Pulsar Blocks
  * Description:       A collection of blocks for use with the Pulsar theme.
  * Requires at least: 5.9
  * Requires PHP:      7.0
