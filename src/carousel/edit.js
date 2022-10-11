@@ -2,31 +2,33 @@ import {
 	useBlockProps,
 	useInnerBlocksProps,
 	BlockControls,
-} from '@wordpress/block-editor';
+} from "@wordpress/block-editor";
 
-import { useState, useEffect } from '@wordpress/element';
+import { useState, useEffect } from "@wordpress/element";
 
-import CarouselControls from './components/CarouselControls';
+import CarouselControls from "./components/CarouselControls";
 
-import Splide from '@splidejs/splide';
+import Splide from "@splidejs/splide";
 
-import { dispatch, select } from '@wordpress/data';
+import { dispatch, select } from "@wordpress/data";
 
-import { Button, ToolbarButton } from '@wordpress/components';
+import {
+	DropdownMenu,
+	Toolbar,
+	ToolbarItem,
+	MenuGroup,
+	MenuItem,
+	Dropdown,
+	Button,
+} from "@wordpress/components";
 
-import { createBlock } from '@wordpress/blocks';
+import { createBlock } from "@wordpress/blocks";
 
-import './editor.scss';
+import { more, plus } from "@wordpress/icons";
 
-const ALLOWED_BLOCKS = ['pulsar/carousel-slide'];
-/*
-const TEMPLATE = [
-	['pulsar/carousel-slide'],
-	['pulsar/carousel-slide'],
-	['pulsar/carousel-slide'],
-	['pulsar/carousel-slide'],
-];
-*/
+import "./editor.scss";
+
+const ALLOWED_BLOCKS = ["pulsar/carousel-slide"];
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -95,7 +97,7 @@ export default function Edit({ clientId, attributes, setAttributes }) {
 	const transformFocusType = () => {
 		const mobile = { ...mobileOptions };
 		mobile.focus =
-			mobile.focusType === 'number'
+			mobile.focusType === "number"
 				? mobile.focusPosition
 				: mobile.focusType;
 		delete mobile.focusPosition;
@@ -103,7 +105,7 @@ export default function Edit({ clientId, attributes, setAttributes }) {
 
 		const tablet = { ...tabletOptions };
 		tablet.focus =
-			tablet.focusType === 'number'
+			tablet.focusType === "number"
 				? tablet.focusPosition
 				: tablet.focusType;
 		delete tablet.focusPosition;
@@ -111,7 +113,7 @@ export default function Edit({ clientId, attributes, setAttributes }) {
 
 		const desktop = { ...desktopOptions };
 		desktop.focus =
-			desktop.focusType === 'number'
+			desktop.focusType === "number"
 				? desktop.focusPosition
 				: desktop.focusType;
 		delete desktop.focusPosition;
@@ -150,7 +152,6 @@ export default function Edit({ clientId, attributes, setAttributes }) {
 		const breakpoints = transformFocusType();
 		setSplideJSONData({
 			...splideJSONData,
-			//trimSpace: false,
 			breakpoints: {
 				640: breakpoints.mobile,
 				1024: breakpoints.tablet,
@@ -159,23 +160,64 @@ export default function Edit({ clientId, attributes, setAttributes }) {
 		});
 	}, [desktopOptions, mobileOptions, tabletOptions]);
 
-	const addBlock = () => {
+	let ALLOWED_INNER_BLOCKS = [];
+
+	const [blocks, setBlocks] = useState(null);
+	useEffect(() => {
+		ALLOWED_INNER_BLOCKS = select("core/block-editor")
+			.getInserterItems(clientId)
+			.map((item) => {
+				return {
+					id: item.id,
+					title: item.title,
+					icon: more,
+					onClick: () => addBlock(item.id),
+				};
+			});
+		setBlocks(ALLOWED_INNER_BLOCKS);
+	}, []);
+
+	const addBlock = (id) => {
 		const innerBlocks =
-			select('core/editor').getBlocksByClientId(clientId)[0].innerBlocks;
-		const block = createBlock('pulsar/carousel-slide');
-		dispatch('core/editor').insertBlock(
+			select("core/editor").getBlocksByClientId(clientId)[0].innerBlocks;
+		const block = createBlock(id);
+		dispatch("core/editor").insertBlock(
 			block,
 			innerBlocks.length,
 			clientId
 		);
 	};
 
-	const blockProps = useBlockProps({ className: 'splide__list' });
+	const blockProps = useBlockProps({ className: "splide__list" });
 
 	const innerBlocksProps = useInnerBlocksProps(blockProps, {
-		orientation: 'horizontal',
+		orientation: "horizontal",
 		allowedBlocks: ALLOWED_BLOCKS,
-		renderAppender: false,
+		renderAppender: () => (
+			<Dropdown
+				className=""
+				contentClassName=""
+				position="bottom right"
+				renderToggle={({ isOpen, onToggle, onClose }) => (
+					<Button isPrimary onClick={onToggle} aria-expanded={isOpen}>
+						Add slide
+					</Button>
+				)}
+				renderContent={({ isOpen, onToggle, onClose }) => (
+					<MenuGroup>
+						{blocks.map((block, index) => (
+							<MenuItem
+								key={index}
+								icon={more}
+								onClick={() => addBlock(block.id)}
+							>
+								{block.title}
+							</MenuItem>
+						))}
+					</MenuGroup>
+				)}
+			/>
+		),
 	});
 
 	return (
@@ -196,11 +238,9 @@ export default function Edit({ clientId, attributes, setAttributes }) {
 				onChangeTabletAttributes={onChangeTabletAttributes}
 				onChangeDesktopAttributes={onChangeDesktopAttributes}
 			/>
-			<BlockControls>
-				<ToolbarButton icon="insert" onClick={addBlock} />
-			</BlockControls>
+
 			<div
-				{...useBlockProps({ className: 'splide' })}
+				{...useBlockProps({ className: "splide" })}
 				aria-label=""
 				/*data-splide={JSON.stringify(splideJSONData)}*/
 			>
@@ -208,13 +248,13 @@ export default function Edit({ clientId, attributes, setAttributes }) {
 					<ul {...innerBlocksProps}></ul>
 				</div>
 			</div>
-			<Button
-				className="insert-slide"
-				variant="primary"
-				onClick={addBlock}
-			>
-				Insert Slide
-			</Button>
+			<BlockControls>
+				<DropdownMenu
+					icon={plus}
+					label="Select a direction"
+					controls={blocks}
+				/>
+			</BlockControls>
 		</>
 	);
 }
