@@ -1,5 +1,5 @@
-# Pulsar Toolkit
+# Pulsar Blocks
 
 <p>
-  <strong>A toolkit of useful blocks and libraries.</strong>
+  <strong>A collection of blocks for use with the Pulsar theme.</strong>
 </p>
