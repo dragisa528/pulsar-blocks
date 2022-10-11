@@ -1,0 +1,35 @@
+.wp-block-pulsar-carousel-slide {
+	@apply w-full;
+
+	.block-editor-inner-blocks {
+		@apply h-full p-8;
+
+		.block-list-appender {
+			@apply bg-black text-white absolute bottom-0 left-auto right-auto;
+
+			svg {
+				margin-top: 0;
+			}
+		}
+	}
+
+	.block-editor-block-list__layout {
+		@apply flex flex-col items-center justify-center pb-12 h-full;
+
+		*:first-child {
+			@apply mt-auto;
+		}
+
+		* + * {
+			@apply mt-4;
+		}
+
+		* + .wp-block-buttons {
+			@apply mt-auto basis-0;
+		}
+
+		*:last-child:not(.wp-block-buttons) {
+			@apply mb-auto;
+		}
+	}
+}

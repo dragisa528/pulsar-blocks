@@ -27,7 +27,7 @@ function Media(props) {
 			{media && (
 				<BlockControls group="inline">
 					<MediaReplaceFlow
-						name={__('Replace Media', '')}
+						name={__('Replace', '')}
 						onSelect={props.onSelectMedia}
 						onError={props.onUploadError}
 						accept="image/*"
@@ -36,24 +36,20 @@ function Media(props) {
 						mediaURL={media.url}
 					/>
 					<ToolbarButton onClick={props.removeMedia}>
-						{__('Remove Media', 'lodgefarmkitchen-blocks')}
+						{__('Remove', 'pulsar')}
 					</ToolbarButton>
 				</BlockControls>
 			)}
 
 			{media && (
-				<div
-					className={`slide-media  w-full ${
-						isBlobURL(media.url) ? ' is-loading' : ''
-					}`}
-				>
+				<>
 					<img
 						src={media.url}
 						alt={media.alt}
-						className={`absolute top-0 left-0 w-full h-full object-cover`}
+						className={`absolute object-cover w-full h-full rounded-3xl`}
 					/>
 					{isBlobURL(media) && <Spinner />}
-				</div>
+				</>
 			)}
 		</>
 	);

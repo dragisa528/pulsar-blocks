@@ -4,10 +4,16 @@
   "name": "pulsar/carousel-slide",
   "version": "0.1.0",
   "title": "Slide",
-  "category": "layout",
+  "category": "design",
   "parent": [
     "pulsar/carousel"
   ],
+  "attributes": {
+    "media": {
+      "type": "object"
+    }
+  },
   "textdomain": "pulsar",
+  "editorStyle": "file:./index.css",
   "editorScript": "file:./index.js"
 }

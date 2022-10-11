@@ -3,15 +3,18 @@
  */
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 
-const ALLOWED_INNER_BLOCKS = [
-	'core/heading',
-	'core/paragraph',
-	'core/buttons',
-	'core/quote',
-];
+const ALLOWED_INNER_BLOCKS = ['core/heading', 'core/paragraph', 'core/buttons'];
 
 import Media from './components/media';
 
+import './editor.css';
+
+/**
+ * The save function describes the structure of your block in the context of the
+ * editor. This represents what the editor will render when the block is used.
+ *
+ * @return {WPElement} Element to render.
+ */
 export default function Edit({ attributes, setAttributes, noticeUI }) {
 	const { media } = attributes;
 
@@ -23,7 +26,7 @@ export default function Edit({ attributes, setAttributes, noticeUI }) {
 		setAttributes({ media });
 	};
 
-	const removeMedia = (media) => {
+	const removeMedia = () => {
 		setAttributes({ media: undefined });
 	};
 
@@ -34,7 +37,7 @@ export default function Edit({ attributes, setAttributes, noticeUI }) {
 
 	return (
 		<div {...blockProps}>
-			<div className="relative flex flex-col w-full">
+			<div className="relative flex flex-col items-end w-full h-[700px]">
 				<Media
 					media={media}
 					onSelectMedia={onSelectMedia}
@@ -43,17 +46,13 @@ export default function Edit({ attributes, setAttributes, noticeUI }) {
 					onUploadError={onUploadError}
 				></Media>
 				{media && (
-					<div className="relative z-10 flex slide-inner-blocks">
-						<div className="container relative z-10 flex items-center ">
-							<div className="prose md:prose-lg max-w-none slide-inner-blocks-padding">
-								<InnerBlocks
-									allowedBlocks={ALLOWED_INNER_BLOCKS}
-									renderAppender={() => (
-										<InnerBlocks.ButtonBlockAppender />
-									)}
-								/>
-							</div>
-						</div>
+					<div className="container relative z-10 flex flex-col justify-end items-center p-10 h-full">
+						<InnerBlocks
+							allowedBlocks={ALLOWED_INNER_BLOCKS}
+							renderAppender={() => (
+								<InnerBlocks.ButtonBlockAppender />
+							)}
+						/>
 					</div>
 				)}
 			</div>
