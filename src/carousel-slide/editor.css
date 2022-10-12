@@ -1,5 +1,4 @@
 .wp-block-pulsar-carousel-slide {
-	@apply w-full;
 
 	.block-editor-inner-blocks {
 		@apply h-full p-8;
