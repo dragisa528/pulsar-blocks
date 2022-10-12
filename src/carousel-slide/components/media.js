@@ -7,50 +7,50 @@ import {
 import { isBlobURL } from '@wordpress/blob';
 import { Spinner, ToolbarButton } from '@wordpress/components';
 
-const ALLOWED_MEDIA_TYPES = ['image'];
+const ALLOWED_MEDIA_TYPES = [ 'image' ];
 
-function Media(props) {
+function Media( props ) {
 	const { media } = props;
 
 	return (
 		<>
 			<MediaPlaceholder
-				onSelect={props.onSelectMedia}
+				onSelect={ props.onSelectMedia }
 				allowedTypes="image"
 				accept="image/*"
-				mediaId={media ? media.id : undefined}
-				value={media ? media : undefined}
-				notices={props.noticeUI}
-				disableMediaButtons={media ? true : false}
+				mediaId={ media ? media.id : undefined }
+				value={ media ? media : undefined }
+				notices={ props.noticeUI }
+				disableMediaButtons={ media ? true : false }
 			/>
 
-			{media && (
+			{ media && (
 				<BlockControls group="inline">
 					<MediaReplaceFlow
-						name={__('Replace', '')}
-						onSelect={props.onSelectMedia}
-						onError={props.onUploadError}
+						name={ __( 'Replace', 'pulsar' ) }
+						onSelect={ props.onSelectMedia }
+						onError={ props.onUploadError }
 						accept="image/*"
-						allowedTypes={ALLOWED_MEDIA_TYPES}
-						mediaId={media.id}
-						mediaURL={media.url}
+						allowedTypes={ ALLOWED_MEDIA_TYPES }
+						mediaId={ media.id }
+						mediaURL={ media.url }
 					/>
-					<ToolbarButton onClick={props.removeMedia}>
-						{__('Remove', 'pulsar')}
+					<ToolbarButton onClick={ props.removeMedia }>
+						{ __( 'Remove', 'pulsar' ) }
 					</ToolbarButton>
 				</BlockControls>
-			)}
+			) }
 
-			{media && (
+			{ media && (
 				<>
 					<img
-						src={media.url}
-						alt={media.alt}
-						className={`absolute object-cover w-full h-full rounded-3xl`}
+						src={ media.url }
+						alt={ media.alt }
+						className={ 'wp-block-pulsar-carousel-slide__image' }
 					/>
-					{isBlobURL(media) && <Spinner />}
+					{ isBlobURL( media ) && <Spinner /> }
 				</>
-			)}
+			) }
 		</>
 	);
 }
