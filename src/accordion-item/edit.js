@@ -35,9 +35,8 @@ export default function Edit( { clientId, attributes: { title }, setAttributes }
 	);
 
 	window.accordionItem = function() {
-		console.log(this);
 		return {
-			id: Math.random().toString( 36 ).substr( 2, 9 ),
+			id: clientId,
 			get expanded() {
 				return this.active === this.id
 			},
@@ -73,16 +72,16 @@ export default function Edit( { clientId, attributes: { title }, setAttributes }
 						className="wp-block-pulsar-accordion-item__icon"
 						x-show="expanded"
 						aria-hidden="true"
+						dangerouslySetInnerHTML={{__html: '&minus;'}}
 					>
-						&minus;
 					</span>
 
 					<span
 						className="wp-block-pulsar-accordion-item__icon"
 						x-show="!expanded"
 						aria-hidden="true"
+						dangerouslySetInnerHTML={{__html: '&plus;'}}
 					>
-						&plus;
 					</span>
 				</button>
 			</h2>
