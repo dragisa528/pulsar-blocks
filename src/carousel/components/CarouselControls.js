@@ -11,80 +11,69 @@ import {
 
 import { useState, useEffect } from '@wordpress/element';
 
-function CarouselControls( props ) {
-	const [ isAutoplayEnabled, setIsAutoplayEnabled ] = useState(
-		props.autoplay
-	);
-	const [ isShowArrowsEnabled, setIsShowArrowsEnabled ] = useState(
+function CarouselControls(props) {
+	const [isAutoplayEnabled, setIsAutoplayEnabled] = useState(props.autoplay);
+	const [isShowArrowsEnabled, setIsShowArrowsEnabled] = useState(
 		props.arrows
 	);
-	const [ isPaginationEnabled, setIsPaginationEnabled ] = useState(
+	const [isPaginationEnabled, setIsPaginationEnabled] = useState(
 		props.pagination
 	);
-	const [ animationMode, setAnimationMode ] = useState( props.type );
-	const [ breakpointScreen, setBreakpointScreen ] = useState( 'desktop' );
-	const [ mobileAttributes, setMobileAttributes ] = useState(
+	const [animationMode, setAnimationMode] = useState(props.type);
+	const [breakpointScreen, setBreakpointScreen] = useState('desktop');
+	const [mobileAttributes, setMobileAttributes] = useState(
 		props.mobileOptions
 	);
-	const [ tabletAttributes, setTabletAttributes ] = useState(
+	const [tabletAttributes, setTabletAttributes] = useState(
 		props.tabletOptions
 	);
-	const [ desktopAttributes, setDesktopAttributes ] = useState(
+	const [desktopAttributes, setDesktopAttributes] = useState(
 		props.desktopOptions
 	);
 
-	const onChangeBreakpointScreen = ( screen ) => {
-		setBreakpointScreen( screen );
+	const onChangeBreakpointScreen = (screen) => {
+		setBreakpointScreen(screen);
 	};
 
 	const onChangeAutoplayEnabled = () => {
-		setIsAutoplayEnabled( ! isAutoplayEnabled );
-		props.onChangeAutoplayEnabled( ! isAutoplayEnabled );
+		setIsAutoplayEnabled(!isAutoplayEnabled);
+		props.onChangeAutoplayEnabled(!isAutoplayEnabled);
 	};
 
 	const onChangeArrowsEnabled = () => {
-		setIsShowArrowsEnabled( ! isShowArrowsEnabled );
+		setIsShowArrowsEnabled(!isShowArrowsEnabled);
 		props.onChangeArrowsEnabled();
 	};
 
 	const onChangePaginationEnabled = () => {
-		setIsPaginationEnabled( ! isPaginationEnabled );
+		setIsPaginationEnabled(!isPaginationEnabled);
 		props.onChangePaginationEnabled();
 	};
 
-	const onChangeAnimationMode = ( mode ) => {
-		setAnimationMode( mode );
-		props.onChangeAnimationMode( mode );
+	const onChangeAnimationMode = (mode) => {
+		setAnimationMode(mode);
+		props.onChangeAnimationMode(mode);
 	};
 
-	const onChangeDesktopAttribute = ( object ) => {
-		const key = Object.keys( object )[ 0 ];
-		const value = Object.values( object )[ 0 ];
-		setDesktopAttributes( { ...desktopAttributes, [ key ]: value } );
-		props.onChangeDesktopAttributes( {
-			...desktopAttributes,
-			[ key ]: value,
-		} );
+	const onChangeDesktopAttribute = (object) => {
+		const key = Object.keys(object)[0];
+		const value = Object.values(object)[0];
+		setDesktopAttributes({ ...desktopAttributes, [key]: value });
+		props.onChangeDesktopAttributes({ ...desktopAttributes, [key]: value });
 	};
 
-	const onChangeTabletAttribute = ( object ) => {
-		const key = Object.keys( object )[ 0 ];
-		const value = Object.values( object )[ 0 ];
-		setTabletAttributes( { ...tabletAttributes, [ key ]: value } );
-		props.onChangeTabletAttributes( {
-			...tabletAttributes,
-			[ key ]: value,
-		} );
+	const onChangeTabletAttribute = (object) => {
+		const key = Object.keys(object)[0];
+		const value = Object.values(object)[0];
+		setTabletAttributes({ ...tabletAttributes, [key]: value });
+		props.onChangeTabletAttributes({ ...tabletAttributes, [key]: value });
 	};
 
-	const onChangeMobileAttribute = ( object ) => {
-		const key = Object.keys( object )[ 0 ];
-		const value = Object.values( object )[ 0 ];
-		setMobileAttributes( { ...mobileAttributes, [ key ]: value } );
-		props.onChangeMobileAttributes( {
-			...mobileAttributes,
-			[ key ]: value,
-		} );
+	const onChangeMobileAttribute = (object) => {
+		const key = Object.keys(object)[0];
+		const value = Object.values(object)[0];
+		setMobileAttributes({ ...mobileAttributes, [key]: value });
+		props.onChangeMobileAttributes({ ...mobileAttributes, [key]: value });
 	};
 
 	return (
@@ -92,16 +81,16 @@ function CarouselControls( props ) {
 			<InspectorControls>
 				<PanelBody
 					title="General"
-					initialOpen={ true }
+					initialOpen={true}
 					className="inspector-controls"
 				>
 					<PanelRow className="__animation">
 						<h2>Animation</h2>
 						<RadioGroup
-							onChange={ onChangeAnimationMode }
+							onChange={onChangeAnimationMode}
 							label="animation"
 							className="__button-group"
-							checked={ animationMode }
+							checked={animationMode}
 						>
 							<Radio value="loop">loop</Radio>
 							<Radio value="slide">slide</Radio>
@@ -113,63 +102,63 @@ function CarouselControls( props ) {
 						<ToggleControl
 							label="Autoplay"
 							help="Help message for autoplay enabling"
-							checked={ isAutoplayEnabled }
-							onChange={ onChangeAutoplayEnabled }
+							checked={isAutoplayEnabled}
+							onChange={onChangeAutoplayEnabled}
 						/>
 					</PanelRow>
 					<PanelRow>
 						<ToggleControl
 							label="Show Arrows"
 							help="Help message for showing arrows"
-							checked={ isShowArrowsEnabled }
-							onChange={ onChangeArrowsEnabled }
+							checked={isShowArrowsEnabled}
+							onChange={onChangeArrowsEnabled}
 						/>
 					</PanelRow>
 					<PanelRow>
 						<ToggleControl
 							label="Show Pagination"
 							help="Help message for showing pagination"
-							checked={ isPaginationEnabled }
-							onChange={ onChangePaginationEnabled }
+							checked={isPaginationEnabled}
+							onChange={onChangePaginationEnabled}
 						/>
 					</PanelRow>
 				</PanelBody>
 				<PanelBody
 					title="Responsive"
-					initialOpen={ false }
+					initialOpen={false}
 					className="inspector-controls"
 				>
 					<PanelRow className="__breakpoints">
 						<h2>Breakpoint Screen</h2>
 						<RadioGroup
-							onChange={ onChangeBreakpointScreen }
+							onChange={onChangeBreakpointScreen}
 							label="breakpoints"
 							className="__button-group"
-							checked={ breakpointScreen }
+							checked={breakpointScreen}
 						>
 							<Radio value="desktop">desktop</Radio>
 							<Radio value="tablet">tablet</Radio>
 							<Radio value="mobile">mobile</Radio>
 						</RadioGroup>
 
-						{ breakpointScreen === 'desktop' && (
+						{breakpointScreen === 'desktop' && (
 							<BreakpointScreenOptions
-								options={ desktopAttributes }
-								onChangeAttribute={ onChangeDesktopAttribute }
+								options={desktopAttributes}
+								onChangeAttribute={onChangeDesktopAttribute}
 							/>
-						) }
-						{ breakpointScreen === 'tablet' && (
+						)}
+						{breakpointScreen === 'tablet' && (
 							<BreakpointScreenOptions
-								options={ tabletAttributes }
-								onChangeAttribute={ onChangeTabletAttribute }
+								options={tabletAttributes}
+								onChangeAttribute={onChangeTabletAttribute}
 							/>
-						) }
-						{ breakpointScreen === 'mobile' && (
+						)}
+						{breakpointScreen === 'mobile' && (
 							<BreakpointScreenOptions
-								options={ mobileAttributes }
-								onChangeAttribute={ onChangeMobileAttribute }
+								options={mobileAttributes}
+								onChangeAttribute={onChangeMobileAttribute}
 							/>
-						) }
+						)}
 					</PanelRow>
 				</PanelBody>
 			</InspectorControls>
@@ -177,58 +166,58 @@ function CarouselControls( props ) {
 	);
 }
 
-function BreakpointScreenOptions( props ) {
-	const [ perPage, setPerPage ] = useState( props.options.perPage );
-	const [ perMove, setPerMove ] = useState( props.options.perMove );
-	const [ gap, setGap ] = useState( props.options.gap );
-	const [ focusType, setFocusType ] = useState( props.options.focusType );
-	const [ focusPosition, setFocusPosition ] = useState(
+function BreakpointScreenOptions(props) {
+	const [perPage, setPerPage] = useState(props.options.perPage);
+	const [perMove, setPerMove] = useState(props.options.perMove);
+	const [gap, setGap] = useState(props.options.gap);
+	const [focusType, setFocusType] = useState(props.options.focusType);
+	const [focusPosition, setFocusPosition] = useState(
 		props.options.focusPosition
 	);
-	const [ focusSliderMarks, setFocusSliderMarks ] = useState( [
+	const [focusSliderMarks, setFocusSliderMarks] = useState([
 		{ value: 1, label: '1' },
-	] );
+	]);
 
-	const onChangePerPage = ( number ) => {
-		setPerPage( number );
-		props.onChangeAttribute( { perPage: number } );
+	const onChangePerPage = (number) => {
+		setPerPage(number);
+		props.onChangeAttribute({ perPage: number });
 	};
 
-	const onChangePerMove = ( number ) => {
-		setPerMove( number );
-		props.onChangeAttribute( { perMove: number } );
+	const onChangePerMove = (number) => {
+		setPerMove(number);
+		props.onChangeAttribute({ perMove: number });
 	};
 
-	const onChangeGap = ( number ) => {
-		setGap( number );
-		props.onChangeAttribute( { gap: number } );
+	const onChangeGap = (number) => {
+		setGap(number);
+		props.onChangeAttribute({ gap: number });
 	};
 
-	const onChangeFocusType = ( string ) => {
-		setFocusType( string );
-		props.onChangeAttribute( { focusType: string } );
+	const onChangeFocusType = (string) => {
+		setFocusType(string);
+		props.onChangeAttribute({ focusType: string });
 	};
 
-	const onChangeFocusPosition = ( number ) => {
-		setFocusPosition( number );
-		props.onChangeAttribute( { focusPosition: number } );
+	const onChangeFocusPosition = (number) => {
+		setFocusPosition(number);
+		props.onChangeAttribute({ focusPosition: number });
 	};
 
 	const generateFocusPositionMarks = () => {
 		const marks = [];
-		for ( let i = 1; i <= perPage; i++ ) {
-			marks[ i ] = {
+		for (let i = 1; i <= perPage; i++) {
+			marks[i] = {
 				value: i,
 				label: '' + i,
 			};
 		}
 
-		setFocusSliderMarks( marks );
+		setFocusSliderMarks(marks);
 	};
 
-	useEffect( () => {
+	useEffect(() => {
 		generateFocusPositionMarks();
-	}, [ perPage ] );
+	}, [perPage]);
 
 	return (
 		<>
@@ -237,12 +226,12 @@ function BreakpointScreenOptions( props ) {
 				<RangeControl
 					help="Additional info about this."
 					allowReset
-					resetFallbackValue={ 1 }
-					step={ 1 }
-					withInputField={ true }
+					resetFallbackValue={1}
+					step={1}
+					withInputField={true}
 					separatorType="none"
 					isShiftStepEnabled
-					marks={ [
+					marks={[
 						{
 							value: 1,
 							label: '1',
@@ -263,11 +252,11 @@ function BreakpointScreenOptions( props ) {
 							value: 5,
 							label: '5',
 						},
-					] }
-					value={ perPage }
-					onChange={ onChangePerPage }
-					min={ 1 }
-					max={ 5 }
+					]}
+					value={perPage}
+					onChange={onChangePerPage}
+					min={1}
+					max={5}
 				/>
 			</PanelRow>
 			<PanelRow className="__per-move">
@@ -275,12 +264,12 @@ function BreakpointScreenOptions( props ) {
 				<RangeControl
 					help="Additional info about this."
 					allowReset
-					resetFallbackValue={ 1 }
-					step={ 1 }
-					withInputField={ true }
+					resetFallbackValue={1}
+					step={1}
+					withInputField={true}
 					separatorType="none"
 					isShiftStepEnabled
-					marks={ [
+					marks={[
 						{
 							value: 1,
 							label: '1',
@@ -301,11 +290,11 @@ function BreakpointScreenOptions( props ) {
 							value: 5,
 							label: '5',
 						},
-					] }
-					value={ perMove }
-					onChange={ onChangePerMove }
-					min={ 1 }
-					max={ 5 }
+					]}
+					value={perMove}
+					onChange={onChangePerMove}
+					min={1}
+					max={5}
 				/>
 			</PanelRow>
 			<PanelRow className="__gap">
@@ -313,12 +302,12 @@ function BreakpointScreenOptions( props ) {
 				<RangeControl
 					help="Additional info about this."
 					allowReset
-					resetFallbackValue={ 0 }
-					step={ 5 }
-					withInputField={ true }
+					resetFallbackValue={0}
+					step={5}
+					withInputField={true}
 					separatorType="none"
 					isShiftStepEnabled
-					marks={ [
+					marks={[
 						{
 							value: 0,
 							label: '0',
@@ -343,40 +332,40 @@ function BreakpointScreenOptions( props ) {
 							value: 100,
 							label: '100',
 						},
-					] }
-					value={ gap }
-					onChange={ onChangeGap }
-					min={ 0 }
-					max={ 100 }
+					]}
+					value={gap}
+					onChange={onChangeGap}
+					min={0}
+					max={100}
 				/>
 			</PanelRow>
 
 			<PanelRow className="__focus">
 				<h2>Focus</h2>
 				<RadioGroup
-					onChange={ onChangeFocusType }
+					onChange={onChangeFocusType}
 					label="animation"
 					className="__button-group"
-					checked={ focusType }
+					checked={focusType}
 				>
 					<Radio value="center">center</Radio>
 					<Radio value="number">number</Radio>
 				</RadioGroup>
 
-				{ focusType === 'number' && (
+				{focusType === 'number' && (
 					<RangeControl
 						help="Additional info about this."
-						step={ 1 }
+						step={1}
 						separatorType="none"
 						className="__range-control"
 						isShiftStepEnabled
-						marks={ focusSliderMarks }
-						value={ focusPosition }
-						onChange={ onChangeFocusPosition }
-						min={ 1 }
-						max={ perPage }
+						marks={focusSliderMarks}
+						value={focusPosition}
+						onChange={onChangeFocusPosition}
+						min={1}
+						max={perPage}
 					/>
-				) }
+				)}
 			</PanelRow>
 		</>
 	);

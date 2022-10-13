@@ -1,0 +1,22 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "pulsar/accordion-item",
+  "version": "0.1.0",
+  "title": "Accordion Item",
+  "category": "design",
+  "parent": [
+    "pulsar/accordion"
+  ],
+  "textdomain": "pulsar",
+  "attributes": {
+    "title": {
+      "type": "string",
+      "source": "html",
+      "selector": ".wp-block-pulsar-accordion-item__text"
+    }
+  },
+  "editorStyle": "file:./index.css",
+  "editorScript": "file:./index.js",
+  "style": "file:./style-index.css"
+}
