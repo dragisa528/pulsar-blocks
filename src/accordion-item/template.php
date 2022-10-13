@@ -10,16 +10,32 @@
  */
 
 ?>
-<div <?php echo wp_kses_data( get_block_wrapper_attributes( [ 'class' => 'splide__slide' ] ) ); ?>>
-	<div class="wp-block-pulsar-carousel-slide__container">
-		<?php if ( isset( $attributes['media']['id'] ) ) : ?>
-			<?php echo wp_get_attachment_image( $attributes['media']['id'], 'large', false, [ 'class' => 'wp-block-pulsar-carousel-slide__image' ] ); ?>
-		<?php endif; ?>
+<div
+	<?php echo wp_kses_data( get_block_wrapper_attributes() ); ?>
+	x-data="{
+		id: 1,
+		get expanded() {
+			return this.active === this.id
+		},
+		set expanded(value) {
+			this.active = value ? this.id : null
+		},
+	}"
+	role="region"
+>
+		<h2 class="wp-block-pulsar-accordion-item__title">
+			<button
+				x-on:click="expanded = !expanded"
+				:aria-expanded="expanded"
+				class="wp-block-pulsar-accordion-item__button"
+			>
+				<span class="wp-block-pulsar-accordion-item__text"><?php echo esc_html( $attributes['title'] ); ?></span>
+				<span class="wp-block-pulsar-accordion-item__icon" x-show="expanded" aria-hidden="true">&minus;</span>
+				<span class="wp-block-pulsar-accordion-item__icon" x-show="!expanded" aria-hidden="true">&plus;</span>
+			</button>
+		</h2>
 
-		<?php if ( $content ) : ?>
-			<div class="wp-block-pulsar-carousel-slide__content">
-				<?php echo $content; ?>
-			</div>
-		<?php endif; ?>
+		<div class="wp-block-pulsar-accordion-item__content" x-show="expanded">
+			<?php echo $content; ?>
+		</div>
 	</div>
-</div>

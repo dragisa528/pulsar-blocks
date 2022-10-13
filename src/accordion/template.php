@@ -10,7 +10,7 @@
  */
 
 ?>
-<section <?php echo wp_kses_data( get_block_wrapper_attributes( [ 'class' => 'splide' ] ) ); ?>>
+<section <?php echo wp_kses_data( get_block_wrapper_attributes() ); ?> x-data="{ active: 1 }">
 	<div class="splide__track">
 		<div class="splide__list">
 			<?php echo $content; ?>

@@ -26,7 +26,7 @@ export default function Edit( { clientId, attributes, setAttributes } ) {
 	const blockProps = useBlockProps();
 
 	const innerBlocksProps = useInnerBlocksProps( { className: 'wp-block-pulsar-accordion__items' }, {
-		orientation: 'vertical',
+		orientation: 'horizontal',
 		allowedBlocks: ALLOWED_BLOCKS,
 		renderAppender: () => <InnerBlocks.ButtonBlockAppender />,
 	} );
@@ -38,7 +38,7 @@ export default function Edit( { clientId, attributes, setAttributes } ) {
 	return (
 		<div
 			{ ...useBlockProps() }
-			x-data="{ active: null }"
+			x-data="{ active: 1 }"
 		>
 			<div { ...innerBlocksProps }></div>
 		</div>

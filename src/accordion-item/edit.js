@@ -35,8 +35,9 @@ export default function Edit( { clientId, attributes: { title }, setAttributes }
 	);
 
 	window.accordionItem = function() {
+		console.log(this);
 		return {
-			id: clientId,
+			id: Math.random().toString( 36 ).substr( 2, 9 ),
 			get expanded() {
 				return this.active === this.id
 			},
@@ -49,10 +50,6 @@ export default function Edit( { clientId, attributes: { title }, setAttributes }
 	return (
 		<div
 			{ ...blockProps }
-			{...{
-				"@:click": "expanded = !expanded",
-				":aria-expanded": "expanded"
-			}}
 			x-data="accordionItem()"
 			role="region"
 		>
@@ -60,7 +57,7 @@ export default function Edit( { clientId, attributes: { title }, setAttributes }
 				<button
 					className="wp-block-pulsar-accordion-item__button"
 					{...{
-						"@:click": "expanded = !expanded",
+						"x-on:click": "expanded = !expanded",
 						":aria-expanded": "expanded"
 					}}
 				>
@@ -90,7 +87,7 @@ export default function Edit( { clientId, attributes: { title }, setAttributes }
 				</button>
 			</h2>
 
-			<div className="wp-block-pulsar-accordion-item__content" x-show="expanded" x-collapse>
+			<div className="wp-block-pulsar-accordion-item__content" x-show="expanded">
 				<div { ...innerBlocksProps }></div>
 			</div>
 		</div>
