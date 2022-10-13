@@ -1,0 +1,10 @@
+.wp-block-pulsar-accordion {
+	padding-bottom: 48px;
+}
+
+	.wp-block-pulsar-accordion .block-list-appender {
+		left: 0;
+		right: 0;
+		bottom: -48px;
+	}
+

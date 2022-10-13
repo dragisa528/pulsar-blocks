@@ -1,0 +1,188 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ */
+
+@keyframes splide-loading {
+	0% {
+		transform: rotate(0);
+	}
+	to {
+		transform: rotate(1turn);
+	}
+}
+
+/**
+ * Base splide styles. Best not to remove unless really needed.
+ */
+
+.wp-block-pulsar-carousel .splide__track--draggable {
+		-webkit-user-select: none;
+		   -moz-user-select: none;
+		        user-select: none;
+	}
+
+.wp-block-pulsar-carousel .splide__track--fade > .splide__list > .splide__slide {
+		margin: 0;
+		opacity: 0;
+		z-index: 0;
+	}
+
+.wp-block-pulsar-carousel .splide__track--fade > .splide__list > .splide__slide.is-active {
+		opacity: 1;
+		z-index: 1;
+	}
+
+.wp-block-pulsar-carousel.splide--rtl {
+		direction: rtl;
+	}
+
+.wp-block-pulsar-carousel .splide__track--ttb > .splide__list {
+		display: block;
+	}
+
+.wp-block-pulsar-carousel .splide__container {
+		box-sizing: border-box;
+		position: relative;
+	}
+
+.wp-block-pulsar-carousel .splide__list {
+		-webkit-backface-visibility: hidden;
+		        backface-visibility: hidden;
+		display: flex;
+		height: 100%;
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+.wp-block-pulsar-carousel.is-initialized:not(.is-active) .splide__list {
+		display: block;
+	}
+
+.wp-block-pulsar-carousel .splide__pagination {
+		align-items: center;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		margin: 0;
+		pointer-events: none;
+	}
+
+.wp-block-pulsar-carousel .splide__pagination li {
+		display: inline-block;
+		line-height: 1;
+		list-style-type: none;
+		margin: 0;
+		pointer-events: auto;
+	}
+
+.wp-block-pulsar-carousel:not(.is-overflow) .splide__pagination {
+		display: none;
+	}
+
+.wp-block-pulsar-carousel .splide__progress__bar {
+		width: 0;
+	}
+
+.wp-block-pulsar-carousel {
+		position: relative;
+		visibility: hidden;
+	}
+
+.wp-block-pulsar-carousel.is-initialized,
+	.wp-block-pulsar-carousel.is-rendered {
+		visibility: visible;
+	}
+
+.wp-block-pulsar-carousel .splide__slide {
+		-webkit-backface-visibility: hidden;
+		        backface-visibility: hidden;
+		box-sizing: border-box;
+		flex-shrink: 0;
+		list-style-type: none;
+		margin: 0;
+		position: relative;
+	}
+
+.wp-block-pulsar-carousel .splide__slide img {
+		vertical-align: bottom;
+	}
+
+.wp-block-pulsar-carousel .splide__spinner {
+		animation: splide-loading 1s linear infinite;
+		border: 2px solid #999;
+		border-left-color: transparent;
+		border-radius: 50%;
+		bottom: 0;
+		contain: strict;
+		display: inline-block;
+		height: 20px;
+		left: 0;
+		margin: auto;
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 20px;
+	}
+
+.wp-block-pulsar-carousel .splide__sr {
+		clip: rect(0 0 0 0);
+		border: 0;
+		height: 1px;
+		margin: -1px;
+		overflow: hidden;
+		padding: 0;
+		position: absolute;
+		width: 1px;
+	}
+
+.wp-block-pulsar-carousel .splide__toggle.is-active .splide__toggle__play,
+	.wp-block-pulsar-carousel .splide__toggle__pause {
+		display: none;
+	}
+
+.wp-block-pulsar-carousel .splide__toggle.is-active .splide__toggle__pause {
+		display: inline;
+	}
+
+.wp-block-pulsar-carousel .splide__track {
+		overflow: hidden;
+		position: relative;
+		z-index: 0;
+	}
+
+/**
+ * Opinionated block styles can go here.
+ */
+
+.wp-block-pulsar-carousel .splide__arrows {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 50%;
+		transform: translateY(-50%);
+		z-index: 1;
+	}
+
+.wp-block-pulsar-carousel .splide__arrow--prev {
+		transform: rotate(180deg);
+	}
+
+.wp-block-pulsar-carousel .splide__pagination {
+		position: absolute;
+		bottom: 10px;
+		left: 0;
+		right: 0;
+	}
+
+.wp-block-pulsar-carousel .splide__pagination li {
+			background-color: black;
+			border-radius: 9999px;
+			width: 10px;
+			height: 10px;
+			margin: 0 2px;
+		}
+
