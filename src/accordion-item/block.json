@@ -13,7 +13,8 @@
       "selector": ".wp-block-pulsar-accordion-item__text"
     },
     "id": {
-      "type": "string"
+      "type": "string",
+      "default": ""
     }
   },
 	"editorStyle": "file:./index.css",

@@ -15,7 +15,7 @@
 	<div
 		<?php echo wp_kses_data( get_block_wrapper_attributes() ); ?>
 		x-data="{
-			id: 1,
+			id: '<?php echo esc_attr( $attributes['id'] ); ?>',
 			get expanded() {
 				return this.active === this.id
 			},

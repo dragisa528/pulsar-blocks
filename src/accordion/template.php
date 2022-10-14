@@ -10,7 +10,7 @@
  */
 
 ?>
-<div <?php echo wp_kses_data( get_block_wrapper_attributes() ); ?> x-data="{ active: 1 }">
+<div <?php echo wp_kses_data( get_block_wrapper_attributes() ); ?> x-data="{ active: null }">
 	<div class="wp-block-pulsar-accordion__items">
 		<?php echo $content; ?>
 	</div>

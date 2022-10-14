@@ -7,6 +7,7 @@ import {
 	useBlockProps,
 	useInnerBlocksProps,
 } from '@wordpress/block-editor';
+import { useEffect } from "@wordpress/element";
 import { __ } from '@wordpress/i18n';
 
 import './editor.css';
@@ -38,8 +39,11 @@ export default function Edit( { clientId, attributes: { title, id }, setAttribut
 		}
 	);
 
-	// Store the Client ID as the id.
-	// setAttributes({ id: clientId });
+	// Set the ID.
+	useEffect(() => {
+		id === '' &&
+		setAttributes({ id: clientId });
+	}, []);
 
 	window.accordionItem = function() {
 		return {
