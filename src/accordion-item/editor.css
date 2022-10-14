@@ -1,9 +1,21 @@
 .wp-block-pulsar-accordion-item {
 
 	.block-list-appender {
-		bottom: -30px !important;
+		bottom: 0 !important;
 		left: auto !important;
 		width: auto;
+	}
+
+	.block-editor-button-block-appender {
+		padding: 0 !important;
+		background-color: var(--wp-admin-theme-color) !important;
+		color: #fff !important;
+		box-shadow: none;
+
+		&:hover,
+		&:focus {
+			background-color: var(--wp-admin-theme-color-darker-10) !important;
+		}
 	}
 
 	&__content {

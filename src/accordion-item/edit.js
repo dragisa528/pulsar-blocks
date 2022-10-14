@@ -23,20 +23,27 @@ const ALLOWED_BLOCKS = [ 'core/heading', 'core/paragraph', 'core/buttons' ];
  * @param  root0.setAttributes
  * @return {WPElement} Element to render.
  */
-export default function Edit( { clientId, attributes: { title }, setAttributes } ) {
+export default function Edit( { clientId, attributes: { title, id }, setAttributes } ) {
 
 	const blockProps = useBlockProps();
 
-	const innerBlocksProps = useInnerBlocksProps({},
+	const innerBlocksProps = useInnerBlocksProps(
 		{
+			className: "wp-block-pulsar-accordion-item__content"
+		},
+		{
+			orientation: "vertical",
 			allowedBlocks: ALLOWED_BLOCKS,
 			renderAppender: () => <InnerBlocks.ButtonBlockAppender />,
 		}
 	);
 
+	// Store the Client ID as the id.
+	// setAttributes({ id: clientId });
+
 	window.accordionItem = function() {
 		return {
-			id: clientId,
+			id: id,
 			get expanded() {
 				return this.active === this.id
 			},
@@ -61,8 +68,9 @@ export default function Edit( { clientId, attributes: { title }, setAttributes }
 					}}
 				>
 					<RichText
-						tagName="p"
+						tagName="span"
 						className="wp-block-pulsar-accordion-item__text"
+						allowedFormats={ [ 'core/bold', 'core/italic' ] }
 						onChange={ (title) => setAttributes( { title } ) }
 						value={ title }
 						placeholder={ __( 'Add a title...' ) }
@@ -86,7 +94,7 @@ export default function Edit( { clientId, attributes: { title }, setAttributes }
 				</button>
 			</h2>
 
-			<div className="wp-block-pulsar-accordion-item__content" x-show="expanded">
+			<div className="wp-block-pulsar-accordion-item__container" x-show="expanded">
 				<div { ...innerBlocksProps }></div>
 			</div>
 		</div>

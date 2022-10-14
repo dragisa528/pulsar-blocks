@@ -1,9 +1,18 @@
 .wp-block-pulsar-accordion {
-	padding-bottom: 48px;
 
 	.block-list-appender {
 		left: 0;
 		right: 0;
-		bottom: -48px;
+		bottom: -56px;
+		display: none;
+	}
+
+	&.is-selected,
+	&.has-child-selected {
+		padding-bottom: 56px;
+
+		.block-list-appender {
+			display: block;
+		}
 	}
 }

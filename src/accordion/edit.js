@@ -25,9 +25,18 @@ export default function Edit( { clientId, attributes, setAttributes } ) {
 
 	const blockProps = useBlockProps();
 
+	const TEMPLATE = [
+		[ 'pulsar/accordion-item', {},
+			[
+				[ 'core/paragraph', {} ]
+			]
+		],
+	];
+
 	const innerBlocksProps = useInnerBlocksProps( { className: 'wp-block-pulsar-accordion__items' }, {
-		orientation: 'horizontal',
+		orientation: "vertical",
 		allowedBlocks: ALLOWED_BLOCKS,
+		template: TEMPLATE,
 		renderAppender: () => <InnerBlocks.ButtonBlockAppender />,
 	} );
 

@@ -11,6 +11,9 @@
     "title": {
       "type": "string",
       "selector": ".wp-block-pulsar-accordion-item__text"
+    },
+    "id": {
+      "type": "string"
     }
   },
 	"editorStyle": "file:./index.css",

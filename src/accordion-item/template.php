@@ -37,8 +37,10 @@
 			</button>
 		</h2>
 
-		<div class="wp-block-pulsar-accordion-item__content" x-show="expanded">
-			<?php echo $content; ?>
+		<div class="wp-block-pulsar-accordion-item__container" x-show="expanded">
+			<div class="wp-block-pulsar-accordion-item__content">
+				<?php echo $content; ?>
+			</div>
 		</div>
 	</div>
 <?php endif; ?>
