@@ -10,19 +10,21 @@
  */
 
 ?>
-<div
-	<?php echo wp_kses_data( get_block_wrapper_attributes() ); ?>
-	x-data="{
-		id: 1,
-		get expanded() {
-			return this.active === this.id
-		},
-		set expanded(value) {
-			this.active = value ? this.id : null
-		},
-	}"
-	role="region"
->
+
+<?php if ( isset( $attributes['title'] ) ) : ?>
+	<div
+		<?php echo wp_kses_data( get_block_wrapper_attributes() ); ?>
+		x-data="{
+			id: 1,
+			get expanded() {
+				return this.active === this.id
+			},
+			set expanded(value) {
+				this.active = value ? this.id : null
+			},
+		}"
+		role="region"
+	>
 		<h2 class="wp-block-pulsar-accordion-item__title">
 			<button
 				x-on:click="expanded = !expanded"
@@ -39,3 +41,4 @@
 			<?php echo $content; ?>
 		</div>
 	</div>
+<?php endif; ?>
