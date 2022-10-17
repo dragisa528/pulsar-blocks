@@ -43,33 +43,23 @@ export default function Edit( { clientId, attributes: { title, id }, setAttribut
 	useEffect(() => {
 		id === '' &&
 		setAttributes({ id: clientId });
+
+        // Listen for a click on the block. If its the richtext element, disable open/close.
+        const element = document.querySelector( `#block-${clientId}` );
+        element.addEventListener( 'click', function(e) {
+            if(e.target.classList.contains('wp-block-pulsar-accordion-item__text')) {
+                e.preventDefault();
+            }
+        } );
 	}, []);
 
-	window.accordionItem = function() {
-		return {
-			id: id,
-			get expanded() {
-				return this.active === this.id
-			},
-			set expanded(value) {
-				this.active = value ? this.id : null
-			}
-		}
-	}
-
 	return (
-		<div
+		<details
 			{ ...blockProps }
-			x-data="accordionItem()"
-			role="region"
 		>
-			<h2 className="wp-block-pulsar-accordion-item__title">
-				<button
+			<summary className="wp-block-pulsar-accordion-item__title">
+				<div
 					className="wp-block-pulsar-accordion-item__button"
-					{...{
-						"x-on:click": "expanded = !expanded",
-						":aria-expanded": "expanded"
-					}}
 				>
 					<RichText
 						tagName="span"
@@ -81,26 +71,24 @@ export default function Edit( { clientId, attributes: { title, id }, setAttribut
 					/>
 
 					<span
-						className="wp-block-pulsar-accordion-item__icon"
-						x-show="expanded"
-						aria-hidden="true"
-						dangerouslySetInnerHTML={{__html: '&minus;'}}
-					>
-					</span>
-
-					<span
-						className="wp-block-pulsar-accordion-item__icon"
-						x-show="!expanded"
+						className="wp-block-pulsar-accordion-item__icon wp-block-pulsar-accordion-item__icon--open"
 						aria-hidden="true"
 						dangerouslySetInnerHTML={{__html: '&plus;'}}
 					>
 					</span>
-				</button>
-			</h2>
 
-			<div className="wp-block-pulsar-accordion-item__container" x-show="expanded">
+					<span
+						className="wp-block-pulsar-accordion-item__icon wp-block-pulsar-accordion-item__icon--close"
+						aria-hidden="true"
+						dangerouslySetInnerHTML={{__html: '&minus;'}}
+					>
+					</span>
+				</div>
+			</summary>
+
+			<div className="wp-block-pulsar-accordion-item__container">
 				<div { ...innerBlocksProps }></div>
 			</div>
-		</div>
+		</details>
 	);
 }

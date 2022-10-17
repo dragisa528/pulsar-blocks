@@ -1,5 +1,46 @@
 .wp-block-pulsar-accordion-item {
 
+	/**
+	 * In the editor the title uses the <summary> element to avoid having to use any JS.
+	 * It useds a chevron list item by default.
+	 */
+	&__title {
+		list-style: none;
+		cursor: pointer;
+	}
+
+	&__text {
+		cursor: auto;
+	}
+
+	&__button {
+		width: auto;
+	}
+
+	/**
+	 * The open state.
+	 */
+	&[open] {
+
+		.wp-block-pulsar-accordion-item__icon--open {
+			display: none;
+		}
+	}
+
+	/**
+	 * The closes state.
+	 */
+	&:not([open]) {
+
+		.wp-block-pulsar-accordion-item__icon--close {
+			display: none;
+		}
+	}
+
+	&__content {
+		min-height: 48px;
+	}
+
 	.block-list-appender {
 		bottom: 0 !important;
 		left: auto !important;
@@ -16,9 +57,5 @@
 		&:focus {
 			background-color: var(--wp-admin-theme-color-darker-10) !important;
 		}
-	}
-
-	&__content {
-		min-height: 48px;
 	}
 }

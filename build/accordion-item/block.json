@@ -12,8 +12,11 @@
   "attributes": {
     "title": {
       "type": "string",
-      "source": "html",
       "selector": ".wp-block-pulsar-accordion-item__text"
+    },
+    "id": {
+      "type": "string",
+      "default": ""
     }
   },
   "editorStyle": "file:./index.css",

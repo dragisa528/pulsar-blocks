@@ -1,10 +1,16 @@
-.wp-block-pulsar-accordion {
-	padding-bottom: 48px;
-}
-
-	.wp-block-pulsar-accordion .block-list-appender {
+.wp-block-pulsar-accordion .block-list-appender {
 		left: 0;
 		right: 0;
-		bottom: -48px;
+		bottom: -56px;
+		display: none;
 	}
+
+	.wp-block-pulsar-accordion.is-selected,
+	.wp-block-pulsar-accordion.has-child-selected {
+		padding-bottom: 56px;
+	}
+
+	.wp-block-pulsar-accordion.is-selected .block-list-appender, .wp-block-pulsar-accordion.has-child-selected .block-list-appender {
+			display: block;
+		}
 

@@ -6,8 +6,6 @@ import {
 
 import './editor.css';
 
-import Alpine from 'alpinejs';
-
 const ALLOWED_BLOCKS = [ 'pulsar/accordion-item' ];
 
 /**
@@ -23,8 +21,6 @@ const ALLOWED_BLOCKS = [ 'pulsar/accordion-item' ];
 
 export default function Edit( { clientId, attributes, setAttributes } ) {
 
-	const blockProps = useBlockProps();
-
 	const TEMPLATE = [
 		[ 'pulsar/accordion-item', {},
 			[
@@ -39,10 +35,6 @@ export default function Edit( { clientId, attributes, setAttributes } ) {
 		template: TEMPLATE,
 		renderAppender: () => <InnerBlocks.ButtonBlockAppender />,
 	} );
-
-	window.Alpine = Alpine;
-
-	Alpine.start();
 
 	return (
 		<div

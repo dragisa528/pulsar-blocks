@@ -1,16 +1,18 @@
-.wp-block-pulsar-accordion-item + .wp-block-pulsar-accordion-item {
-		border-top: 1px solid #ccc;
+.wp-block-pulsar-accordion-item {
+	border: 1px solid #e6e6e6 !important;
+}
+
+	.wp-block-pulsar-accordion-item + .wp-block-pulsar-accordion-item {
+		margin-top: 1rem;
 	}
 
 	.wp-block-pulsar-accordion-item__title {
 		margin: 0;
-		font-size: 24px !important;
-		font-weight: 700 !important;
+		font-size: 20px !important;
 	}
 
 	.wp-block-pulsar-accordion-item__button {
-		padding: 1rem !important;
-		background-color: #f4f4f4 !important;
+		padding: 1rem 1.5rem !important;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -19,5 +21,15 @@
 
 	.wp-block-pulsar-accordion-item__text {
 		text-align: left;
+	}
+
+	.wp-block-pulsar-accordion-item__icon {
+		margin-left: 1rem;
+	}
+
+	.wp-block-pulsar-accordion-item__container {}
+
+	.wp-block-pulsar-accordion-item__content {
+		padding: 0 1.5rem 1rem;
 	}
 
